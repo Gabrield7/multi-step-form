@@ -1,5 +1,7 @@
+import { AppRoutes } from "./routes.tsx"
+
 export function App() {
   return (
-    <>Multi Step Form</>
+    <AppRoutes />
   )
 }
