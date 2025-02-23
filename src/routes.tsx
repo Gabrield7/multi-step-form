@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
-import { Info } from "./pages/Info/Info";
-import { Plan } from "./pages/plan/Plan";
-import { Addons } from "./pages/addons/Addons";
-import { Summary } from "./pages/summary/Summary";
+import { Info } from "./Pages/Info/Info";
+import { Plan } from "./Pages/Plan/Plan";
+import { Addons } from "./Pages/Addons/Addons";
+import { Summary } from "./Pages/Summary/Summary";
 
 export const AppRoutes = () => {
     return (
