@@ -1,6 +1,6 @@
 # MULTI STEP FORM
 
-![Design preview for the Todo app](./images/desktop-preview.jpg)
+![Design preview for the multi step form](/public/design/desktop-preview.jpg)
 
 ## <b>📖 Project description</b>
 
@@ -32,6 +32,7 @@ This a multi-step form application based on [Frontend Mentor Design](https://www
 <p>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-plain-wordmark.svg" height=50 style="margin-right: 0px;">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-plain-wordmark.svg" height=50 style="margin-right: 5px;">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sass/sass-original.svg" height=50 style="margin-right: 10px;">      
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-plain.svg" height=50 style="margin-right: 10px;">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original-wordmark.svg" height=50 style="margin-right: 10px;">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg" height=50 style="margin-right: 10px;">    

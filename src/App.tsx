@@ -1,6 +1,6 @@
-//import { Topbar } from "./Components/Navbar/Topbar/Topbar.tsx"
+// import { Topbar } from "./Components/Topbar"
 import { AppRoutes } from "./routes.tsx"
-import './reset.css'
+import './Styles/reset.css'
 
 export function App() {
   return (
