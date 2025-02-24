@@ -1,0 +1,26 @@
+@use '@styles/variables' as *;
+
+.navigate-button{
+    all: unset;
+    display: flex;
+    width: 2rem;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $alabaster;
+    border-radius: 20px;
+    margin: 2rem 0;
+    z-index: 1;
+    font-family: $main-font;
+    font-weight: 500;
+    font-size: 16px;
+    color: $magnolia;
+    transition: 250ms;
+
+    &:hover, &:focus{
+        background-color: $light-blue;
+        border-color: $light-blue;
+        color: $marine-blue;
+        cursor: pointer;
+    }
+}

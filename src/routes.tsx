@@ -1,12 +1,12 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router";
-import { Info } from "./Pages/Info/Info";
-import { Plan } from "./Pages/Plan/Plan";
-import { Addons } from "./Pages/Addons/Addons";
-import { Summary } from "./Pages/Summary/Summary";
+import { Routes, Route, Navigate } from "react-router";
+import { Info } from "./Pages/Info";
+import { Plan } from "./Pages/Plan";
+import { Addons } from "./Pages/Addons";
+import { Summary } from "./Pages/Summary";
 
 export const AppRoutes = () => {
     return (
-        <BrowserRouter>
+        // <BrowserRouter>
             <Routes>
                 <Route path='*' element={<Navigate to='/info'/>} />
 
@@ -15,6 +15,6 @@ export const AppRoutes = () => {
                 <Route path='/addons' element={<Addons />} />
                 <Route path='/summary' element={<Summary />} />
             </Routes>
-        </BrowserRouter>
+        //</BrowserRouter>
     );   
 }
