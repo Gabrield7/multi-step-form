@@ -1,0 +1,29 @@
+@use '@styles/variables' as *;
+
+.page__container{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;   
+    background-color: $alabaster;
+    border-radius: .5rem;
+    margin: 1rem;
+    padding: 2rem 1.5rem;
+    position: relative;
+    z-index: 1;
+
+    h1{
+        font-family: $main-font;
+        font-weight: 700;
+        font-size: 24px;
+        color: $marine-blue;
+        margin-bottom: 1rem;
+    }
+
+    p{
+        font-family: $main-font;
+        font-weight: 400;
+        font-size: 16px;
+        color: $cool-gray;
+        margin-bottom: 1rem;
+    }
+}

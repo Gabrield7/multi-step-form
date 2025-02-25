@@ -1,10 +1,13 @@
+import { BodyPage } from '../../Components/BodyPage';
 import './Plan.scss'
 
 export const Plan = () => {
     return(
-        <div className='plan__container'>
-            <h1>Select your plan</h1>
-            <p>You have the option of monthly or yearly billing.</p>
-        </div>
+        <BodyPage
+            title={'Select your plan'}
+            subtitle={'You have the option of monthly or yearly billing.'}
+        >
+            <div className='addons__container'></div>
+        </BodyPage>
     )
 };

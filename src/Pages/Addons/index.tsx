@@ -1,10 +1,14 @@
+import { BodyPage } from '../../Components/BodyPage';
 import './Addons.scss';
 
 export const Addons = () => {
     return(
-        <div className='addons__container'>
-            <h1>Pick add-ons</h1>
-            <p>Add-ons help enhance your game experience.</p>
-        </div>
+        <BodyPage 
+            title={'Pick add-ons'}
+            subtitle={'Add-ons help enhance your game experience.'}
+        >
+            <div className='addons__container'></div>
+        </BodyPage>
+        
     )
 };

@@ -1,4 +1,3 @@
-//import { Link } from 'react-router';
 import React from 'react';
 import './NavigateButton.scss';
 import { Link } from 'react-router';
