@@ -8,6 +8,7 @@ export const Info = () => {
             subtitle={'Please provide your name, email address and phone number.'}
         >
             <div className='info__container'></div>
+            
         </BodyPage>
     )
 };

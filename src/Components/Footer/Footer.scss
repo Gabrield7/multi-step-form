@@ -1,0 +1,9 @@
+@use '@styles/variables' as *;
+
+.footer{
+    display: flex;
+    justify-content: space-between;
+    background-color: $alabaster;
+    padding: 1rem;
+    margin-top: auto;
+}
