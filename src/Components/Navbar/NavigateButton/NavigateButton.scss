@@ -1,5 +1,11 @@
 @use '@styles/variables' as *;
 
+@mixin buttonState($background, $border, $color){
+    background-color: $background;
+    border-color: $border;
+    color: $color;
+}
+
 .navigate-button{
     all: unset;
     display: flex;
@@ -7,20 +13,27 @@
     height: 2rem;
     align-items: center;
     justify-content: center;
-    border: 1px solid $alabaster;
+    border-width: 1px;
+    border-style: solid;
     border-radius: 20px;
     margin: 2rem 0;
     z-index: 1;
     font-family: $main-font;
     font-weight: 500;
     font-size: 16px;
-    color: $magnolia;
     transition: 250ms;
+    cursor: pointer;
+    //@include buttonState(transparent, $magnolia, $magnolia);
 
-    &:hover, &:focus{
-        background-color: $light-blue;
-        border-color: $light-blue;
-        color: $marine-blue;
-        cursor: pointer;
+    &:hover{
+        @include buttonState($light-blue, $light-blue, $marine-blue)
     }
+}
+
+.normal{
+    @include buttonState(transparent, $magnolia, $magnolia);
+}
+
+.active{
+    @include buttonState($light-blue, $light-blue, $marine-blue)
 }

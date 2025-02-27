@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './NavigateButton.scss';
-import { Link } from 'react-router';
+import { useLocation, useNavigate} from 'react-router';
 
 interface INavigateButtonProps{
     label: number,
@@ -8,7 +8,22 @@ interface INavigateButtonProps{
 };
 
 export const NavigateButton: React.FC<INavigateButtonProps> = (props) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [buttonClass, setButtonClass] = useState<string>('navigate-button normal');
+
+    useEffect(() => {
+        const buttonClass = props.path === location.pathname? 'active':'normal'; 
+        setButtonClass(`navigate-button ${buttonClass}`)
+        
+    }, [location, props.path]);
+    
     return (
-        <Link className='navigate-button' to={props.path}>{props.label}</Link>
+        <button 
+            className={buttonClass}
+            onClick={() => navigate(props.path)}
+        > 
+            {props.label} 
+        </button>
     )
 };

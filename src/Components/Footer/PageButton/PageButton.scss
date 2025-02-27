@@ -1,9 +1,20 @@
 @use '@styles/variables' as *;
 
 .page-button{
+    all: unset;
     display: flex;
     padding: 0.75rem 1rem;
     font-family: $main-font;
     font-weight: 500;
     border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.next{
+    background-color: $marine-blue;
+    color: $magnolia;
+}
+
+.prev{
+    color: $cool-gray;
 }
