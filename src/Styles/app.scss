@@ -1,12 +1,13 @@
 @use '@styles/variables' as *;
 
-body, #root, .app{
+body, #root{
+    height: 100%;
     width: 100vw;
-    height: 100vh;
     min-width: 320px;
 }
 
 .app{
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: $light-gray;

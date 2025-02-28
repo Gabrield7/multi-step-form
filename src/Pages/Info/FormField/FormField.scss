@@ -1,0 +1,48 @@
+@use '@styles/variables' as *;
+
+@mixin fontStyle($weight, $color){
+    font-family: $main-font;
+    font-weight: $weight;
+    font-size: 16px;
+    color: $color;
+}
+
+// :root{
+//     --error-color: $strawberry-red
+// }
+
+.form-filed{
+    all: unset;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    input{
+        @include fontStyle(600, $marine-blue);
+        background-color: $alabaster;
+        border: 1px solid $light-gray;
+        border-radius: .5rem;
+        padding: 1rem;
+
+        &:focus, &:hover{
+            outline: 1px solid $purplish-blue;
+        }
+
+        &::placeholder{
+            @include fontStyle(600, $cool-gray);
+        }
+    }
+}
+
+.labels{
+    display: flex;
+    justify-content: space-between;
+    
+    label{
+        @include fontStyle(500, $marine-blue);
+    }
+}
+
+.error-message{
+    @include fontStyle(500, $strawberry-red);
+}
