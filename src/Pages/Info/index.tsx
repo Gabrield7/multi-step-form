@@ -8,12 +8,11 @@ export const Info = () => {
             title={'Personal info'}
             subtitle={'Please provide your name, email address and phone number.'}
         >
-            <div className='info__container'>
-                <FormField label='Name' placeholder='e.g. Stephen King' error='This field is required'/>
-                <FormField label='Email address' placeholder='e.g. stephenking@lorem.com' error='This field is required'/>
-                <FormField label='Phone Number' placeholder='e.g. +1 234 567 890' error='This field is required'/>
-            </div>
-            
+            <form className='info__container'>
+                <FormField label='Name' placeholder='e.g. Stephen King' />
+                <FormField label='Email address' placeholder='e.g. stephenking@lorem.com'/>
+                <FormField label='Phone Number' placeholder='e.g. +1 234 567 890'/>
+            </form>
         </BodyPage>
     )
 };

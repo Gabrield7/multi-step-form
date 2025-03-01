@@ -7,15 +7,11 @@
     color: $color;
 }
 
-// :root{
-//     --error-color: $strawberry-red
-// }
-
 .form-filed{
     all: unset;
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: .25rem;
 
     input{
         @include fontStyle(600, $marine-blue);
@@ -23,6 +19,7 @@
         border: 1px solid $light-gray;
         border-radius: .5rem;
         padding: 1rem;
+        //outline: 1px solid $strawberry-red;
 
         &:focus, &:hover{
             outline: 1px solid $purplish-blue;
@@ -45,4 +42,9 @@
 
 .error-message{
     @include fontStyle(500, $strawberry-red);
+    height: 1rem;
+}
+
+.error{
+    outline: 1px solid $strawberry-red !important;
 }
