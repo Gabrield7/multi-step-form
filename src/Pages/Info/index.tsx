@@ -11,7 +11,7 @@ export const Info = () => {
             <form className='info__container'>
                 <FormField label='Name' placeholder='e.g. Stephen King' />
                 <FormField label='Email address' placeholder='e.g. stephenking@lorem.com'/>
-                <FormField label='Phone Number' placeholder='e.g. +1 234 567 890'/>
+                <FormField label='Phone Number' placeholder='e.g. +1 234 567 890' onlyNumbers/>
             </form>
         </BodyPage>
     )

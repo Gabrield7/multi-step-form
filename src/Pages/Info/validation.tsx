@@ -51,10 +51,25 @@ const emailValidation = (validation: Validation): void => {
     }
 };
 
-const phoneValidation = (validation: Validation) => {
+const phoneValidation = (validation: Validation): void => {
     const phone = validation.e.target.value;
-    return phone
-}
+
+    try {
+        const formattedPhone: string = phone.trim();
+        const phoneRegex: RegExp = /^(?:\D*\d\D*){8,15}$/;
+
+        if(formattedPhone=== '' || !formattedPhone){
+            throw new Error('This field is required')
+        }
+        if(!formattedPhone.match(phoneRegex)){
+            throw new Error('Invalid phone number')
+        }
+
+        validation.setError('');
+    } catch (error) {
+        handleError(error, validation.setError)
+    }
+};
 
 export const validation = (validation: Validation, validationFunction: string) => {
     switch (validationFunction) {
