@@ -1,0 +1,48 @@
+@use '@styles/variables' as *;
+
+@mixin text-style($color, $weight){
+    font-family: $main-font;
+    color: $color;
+    font-weight: $weight;
+}
+
+.button__container{
+    all: unset;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid $cool-gray;
+    border-radius: .5rem;
+    transition: 250ms;
+    cursor: pointer;
+
+    &:hover, &:focus{
+        border-color: $purplish-blue;
+        background-color: $magnolia;
+    }
+    
+    img{
+        display: flex;
+        align-self: flex-start;
+    }
+
+    div{
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+
+        h2{
+            @include text-style($marine-blue, 700);
+            //font-size: 18px;
+        }
+
+        .plan-price{
+            @include text-style($cool-gray, 400);
+        }
+
+        .extra{
+            @include text-style($marine-blue, 500);
+        }
+    }
+}

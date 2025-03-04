@@ -11,7 +11,7 @@ export const BodyPage: React.FC<IBodyPageProps> = (props) => {
     return(
         <div className='page__container'>
             <h1>{props.title}</h1>
-            <p>{props.subtitle}</p>
+            <p className='subtitle'>{props.subtitle}</p>
 
             {props.children}
         </div>

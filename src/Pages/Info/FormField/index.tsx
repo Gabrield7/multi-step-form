@@ -9,7 +9,6 @@ interface IFormFieldProps{
     onlyNumbers?: boolean
 }
 
-
 export const FormField: React.FC<IFormFieldProps> = (props) => {
     const fieldID = props.label.toLocaleLowerCase().trim().replace(/\s+/g, '-');
     
