@@ -20,11 +20,6 @@
         border-radius: .5rem;
         padding: 1rem;
 
-        // &:-webkit-autofill, &:-ms-autofill, &:-moz-autofill, &:focus:-webkit-autofill {
-        //     background-color: transparent !important;
-        //     color: inherit !important;
-        // }
-
         &:focus, &:hover{
             outline: 1px solid $purplish-blue;
         }

@@ -1,0 +1,22 @@
+@use '@styles/variables' as *;
+
+.switch__container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $magnolia;
+    padding: 1rem;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    p{
+        font-family: $main-font;
+        color: $cool-gray;
+        font-weight: 500;
+        transition: 250ms;
+    }
+}
+
+.checked{
+    color: $marine-blue !important;
+}
