@@ -1,17 +1,16 @@
+import { useContext } from 'react';
+import { SwitchContext } from '../../SwitchContext';
 import './ToggleButton.scss';
-
-interface IToggleButtonProps {
-    check: boolean,
-    setCheck: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-export const ToggleButton: React.FC<IToggleButtonProps> = (props) => {   
+  
+export const ToggleButton = () => {   
+    const { check, setCheck } = useContext(SwitchContext);
+    
     return(
         <label className='toggle'>
             <input 
                 type='checkbox'
-                checked={props.check}
-                onChange={() => props.setCheck(!props.check)}
+                checked={check}
+                onChange={() => setCheck(!check)}
             />
             <span className='slider'></span>
         </label>
