@@ -1,0 +1,74 @@
+@use '@styles/variables' as *;
+
+.addon__container{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid $cool-gray;
+    border-radius: .75rem;
+    background-color: transparent;
+    border-color: $cool-gray;
+    transition: 250ms;
+
+    .custom-checkbox{
+        input{
+            display: none;
+        }
+
+        input:checked + span{
+            background-image: url('/assets/images/icon-checkmark.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: $purplish-blue;
+            border-color: $purplish-blue;
+        }
+
+        span{
+            display: block;
+            width: 20px;
+            height: 20px;
+            border: 1px solid $cool-gray;
+            border-radius: .25rem;
+            background-color: $alabaster;
+            transition: 250ms;
+            cursor: pointer;
+
+            &:hover{
+                border-color: $purplish-blue;
+            }
+        }
+    }
+
+    div{
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        flex-grow: 1;
+
+        h2{
+            font-family: $main-font;
+            color: $marine-blue;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        p{
+            font-family: $main-font;
+            color: $cool-gray;
+            font-size: 14px;
+            letter-spacing: -.5px;
+        }
+    }
+
+    .extra{
+        display: block;
+        font-family: $main-font;
+        color: $purplish-blue;
+    }
+}
+
+.checked{
+    background-color: $magnolia;
+    border-color: $purplish-blue;
+}
