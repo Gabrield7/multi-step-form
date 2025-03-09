@@ -1,0 +1,17 @@
+@use '@styles/variables' as *;
+
+.subscription-list__container{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: $magnolia;
+    border-radius: .5rem;
+    padding: 1rem 0;
+
+    span{
+        display: block;
+        height: 1px;
+        background-color: $light-gray;
+        margin: 0 1rem;
+    }
+}

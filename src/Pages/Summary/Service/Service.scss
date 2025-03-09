@@ -1,0 +1,31 @@
+@use '@styles/variables' as *;
+
+.service__container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+
+    div{
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+
+        h3{
+            font-family: $main-font;
+        }
+
+        button{
+            all: unset;
+            font-family: $main-font;
+            color: $cool-gray;
+            text-decoration: underline;
+        }
+    }
+
+    p{
+        font-family: $main-font;
+        color: $marine-blue;
+        font-weight: 500;
+    }
+}

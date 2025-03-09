@@ -1,4 +1,6 @@
 import { BodyPage } from '../../Components/BodyPage';
+import { SubscriptionList } from './SubscriptionList';
+import { Service } from './Service';
 import './Summary.scss'
 
 export const Summary = () => {
@@ -7,7 +9,10 @@ export const Summary = () => {
             title={'Finishing up'}
             subtitle={'Double check everything looks OK before confirming.'}
         >
-            <div className='addons__container'></div>
+            <div className='summary__container'>
+                <SubscriptionList />
+                <Service type='total' name='Total (per month)' price={12}/>
+            </div>
         </BodyPage>
     )
 };

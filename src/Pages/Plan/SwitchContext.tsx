@@ -1,5 +1,4 @@
 import { useState, createContext, ReactNode } from "react";
-import './Plan.scss';
 
 interface ISwitchContextProps {
     check: boolean;
@@ -20,9 +19,7 @@ const SwitchContextProvider =({ children }: ISwitchContextProviderProps) => {
 
     return (
         <SwitchContext.Provider value={{ check, setCheck }}>
-            <div className='plan__container'>
-                {children}
-            </div>
+            {children}
         </SwitchContext.Provider>
     )
 }

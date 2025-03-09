@@ -1,6 +1,6 @@
-import { validation } from '../validation.tsx';
-import clsx from 'clsx';
 import { useState } from 'react';
+import { validation } from '../validation.ts';
+import clsx from 'clsx';
 import './FormField.scss';
 
 interface IFormFieldProps{
