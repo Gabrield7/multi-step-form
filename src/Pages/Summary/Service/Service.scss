@@ -25,7 +25,19 @@
 
     p{
         font-family: $main-font;
-        color: $marine-blue;
-        font-weight: 500;
+        font-weight: 700;
     }
+}
+
+.marine-blue{
+    color: $marine-blue;
+    font-weight: 700;
+}
+
+.cool-gray{
+    color: $cool-gray;
+}
+
+.purplish-blue{
+    color: $purplish-blue
 }
