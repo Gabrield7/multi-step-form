@@ -1,4 +1,4 @@
-import { BodyPage } from '../../Components/BodyPage';
+import { BodyPage } from '@components/BodyPage';
 import { FormField } from './FormField';
 import './Info.scss';
 

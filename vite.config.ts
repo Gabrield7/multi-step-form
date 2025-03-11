@@ -6,7 +6,9 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@styles': path.resolve(__dirname, 'src/Styles')
+      '@styles': path.resolve(__dirname, 'src/Styles'),
+      '@contexts': path.resolve(__dirname, 'src/Contexts'),
+      '@components': path.resolve(__dirname, 'src/Components')
     }
   }
 })

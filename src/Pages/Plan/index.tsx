@@ -1,8 +1,6 @@
-import { BodyPage } from '../../Components/BodyPage';
+import { BodyPage } from '@components/BodyPage';
 import { PlanButton } from './PlanButton';
 import { Switch } from './Switch';
-import { SignatureContextProvider } from '../../Contexts/SignatureContext';
-import { availablePlans } from '../../Contexts/Models';
 import './Plan.scss';
 
 export const Plan = () => {
@@ -11,15 +9,13 @@ export const Plan = () => {
             title={'Select your plan'}
             subtitle={'You have the option of monthly or yearly billing.'}
         >
-            <SignatureContextProvider>
-                <div className='plan__container'>
-                    <PlanButton plan={availablePlans['Arcade']}/>
-                    <PlanButton plan={availablePlans['Advanced']}/>
-                    <PlanButton plan={availablePlans['Pro']}/>
+            <div className='plan__container'>
+                <PlanButton plan={'Arcade'}/>
+                <PlanButton plan={'Advanced'}/>
+                <PlanButton plan={'Pro'}/>
 
-                    <Switch />
-                </div>
-            </SignatureContextProvider>
+                <Switch />
+            </div>
         </BodyPage>
     )
 };

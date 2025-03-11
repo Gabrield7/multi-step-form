@@ -1,4 +1,4 @@
-import { BodyPage } from '../../Components/BodyPage';
+import { BodyPage } from '@components/BodyPage';
 import { AddonButton } from './AddonButton';
 import './Addons.scss';
 

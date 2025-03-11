@@ -1,4 +1,4 @@
-import { BodyPage } from '../../Components/BodyPage';
+import { BodyPage } from '@components/BodyPage';
 import { SubscriptionList } from './SubscriptionList';
 import { Service } from './Service';
 import './Summary.scss'

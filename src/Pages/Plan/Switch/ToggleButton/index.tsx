@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { SignatureContext } from '../../../../Contexts/SignatureContext';
+import { SignatureContext } from '@contexts/SignatureContext';
 import './ToggleButton.scss';
   
 export const ToggleButton = () => {   
