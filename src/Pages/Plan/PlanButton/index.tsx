@@ -1,24 +1,30 @@
 import { useContext } from 'react';
-import { SwitchContext } from '../SwitchContext';
+import { SignatureContext } from '../../../Contexts/SignatureContext';
+import { availablePlans } from '../../../Contexts/Models';
 import './PlanButton.scss';
 
-interface IPlanButtonProps {
-    iconPath: string,
-    title: string,
-    price: number,
-    // yearly: boolean
-}
+type PlanName = keyof typeof availablePlans;
+type Plan = typeof availablePlans[PlanName];
 
-export const PlanButton: React.FC<IPlanButtonProps> = (props) => {
-    const { check } = useContext(SwitchContext);
+interface IPlanButtonProps {
+    plan: Plan; 
+};
+
+export const PlanButton: React.FC<IPlanButtonProps> = ({ plan }) => {
+    const { cycle, setPlan } = useContext(SignatureContext);
     
     return (
-        <button type='button' className='button__container'>
-            <img src={props.iconPath}/>
+        <button 
+            type='button' 
+            className='button__container'
+            onClick={() => setPlan(plan)}
+        >
+            <img src={plan.iconPath}/>
             <div>
-                <h2>{props.title}</h2>
-                <p className='plan-price'>{`${check? `$${props.price*10}/yr`:`$${props.price}/mo`}`}</p>
-                <p style={check? {}:{display: 'none'}} className='extra'>2 months free</p>
+                <h2>{Object.keys(plan)[0]}</h2>
+
+                <p className='plan-price'>{`${cycle === 'yearly'? `$${plan.price.yearly}/yr`:`$${plan.price.monthly}/mo`}`}</p>
+                <p style={cycle === 'yearly'? {}:{display: 'none'}} className='extra'>2 months free</p>
             </div>
         </button>
     )

@@ -1,18 +1,17 @@
-//import { useState } from 'react'
 import { ToggleButton } from './ToggleButton'
-import { SwitchContext } from '../SwitchContext';
+import { SignatureContext } from '../../../Contexts/SignatureContext';
 import { useContext } from 'react';
 import clsx from 'clsx';
 import './Switch.scss'
 
 export const Switch = () => {
-    const { check } = useContext(SwitchContext);
+    const { cycle } = useContext(SignatureContext);
     
     return (
         <div className='switch__container'>
-            <p className={clsx({ 'checked': !check })}>Monthly</p>
+            <p className={clsx({ 'checked': cycle === 'monthly' })}>Monthly</p>
             <ToggleButton />
-            <p className={clsx({ 'checked': check })}>Yearly</p>
+            <p className={clsx({ 'checked': cycle === 'yearly' })}>Yearly</p>
         </div>
     )
 }

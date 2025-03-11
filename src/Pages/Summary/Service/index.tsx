@@ -33,4 +33,3 @@ export const Service: React.FC<IServiceProps> = (props) => {
     )
 }
 
-//props.type === 'plan'? 'name-plan':''
