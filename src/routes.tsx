@@ -16,6 +16,7 @@ export const AppRoutes = () => {
                     <Route path='/addons' element={<Addons />} />
                     <Route path='/summary' element={<Summary />} />
             </Routes>
+
         </SignatureContextProvider>
     );   
 }

@@ -1,25 +1,23 @@
 import { availableAddons, availablePlans } from './Models.ts';
-import { ReactNode, createContext, useState } from 'react';
+import { ReactNode, createContext, useEffect, useState } from 'react';
 
-type PlanName = keyof typeof availablePlans;
-type Plan = typeof availablePlans[PlanName];
-
-type AddonName = keyof typeof availableAddons;
-type Addon = typeof availableAddons[AddonName];
+type PlanType = 'Arcade' | 'Advanced' | 'Pro' | null;
+type AddonType = 'Online service' | 'Larger storage' | 'Customizable profile';
+type BillingCycle = 'monthly' | 'yearly';
 
 interface ISignatureContextProps {
-    plan: Plan;
-    cycle: 'monthly' | 'yearly';
-    addons: Addon[];
+    plan: PlanType;
+    cycle: BillingCycle;
+    addons: AddonType[]
     price: number;
-    setPlan: (plan: Plan) => void;
-    setCycle: (cycle: 'monthly' | 'yearly') => void;
-    setAddons: (addons: Addon[]) => void;
+    setPlan: (plan: PlanType) => void;
+    setCycle: (cycle: BillingCycle) => void;
+    setAddons: (addons: AddonType[]) => void;
     setPrice: (price: number) => void;
 };
 
 const SignatureContext = createContext<ISignatureContextProps>({
-    plan: availablePlans['Arcade'],
+    plan: null,
     cycle: 'monthly',
     addons: [],
     price: 0,
@@ -30,36 +28,22 @@ const SignatureContext = createContext<ISignatureContextProps>({
 });
 
 const SignatureContextProvider = ({ children } : { children: ReactNode }) => {
-    const [plan, setPlan] = useState<Plan>(availablePlans['Arcade']);
-    const [cycle, setCycle] = useState<'monthly' | 'yearly'>('monthly');
-    const [addons, setAddons] = useState<Addon[]>([]);
+    const [plan, setPlan] = useState<PlanType>(null);
+    const [cycle, setCycle] = useState<BillingCycle>('monthly');
+    const [addons, setAddons] = useState<AddonType[]>([]);
     const [price, setPrice] = useState<number>(0);
 
-    const totalPrice = () => {
-        const addonsPrice = addons?.length 
-            ? addons.reduce((acc, addon) => acc + addon.price[cycle], 0) 
-            : 0;
-        const addonsCyclingPrice = cycle === 'monthly'? addonsPrice : addonsPrice*10;
+    const calculatePrice = () => {
+        const addonsPrice = addons.reduce((acc, addon) => acc + availableAddons[addon].price[cycle], 0);
+        const planPrice = plan? availablePlans[plan].price[cycle] : 0;
 
-        const planCyclingPrice = plan.price[cycle];
-        const planPrice: number = cycle === 'monthly'? planCyclingPrice : planCyclingPrice*10;
-
-        setPrice(planPrice + addonsCyclingPrice);
+        setPrice(planPrice + addonsPrice);
     };
 
+    useEffect(calculatePrice, [plan, cycle, addons]);
+
     return (
-        <SignatureContext.Provider 
-            value={{
-                plan,
-                cycle,
-                addons,
-                price,
-                setPlan,
-                setCycle,
-                setAddons,
-                setPrice: totalPrice
-            }}
-        >
+        <SignatureContext.Provider value={{ plan, cycle, addons, price, setPlan, setCycle, setAddons, setPrice }}>
             {children}
         </SignatureContext.Provider>
     )
