@@ -9,14 +9,13 @@ export const AppRoutes = () => {
     return (
         <SignatureContextProvider>
             <Routes>
-                    <Route path='*' element={<Navigate to='/info'/>} />
+                <Route path='*' element={<Navigate to='/info'/>} />
 
-                    <Route path='/info' element={<Info />} />
-                    <Route path='/plan' element={<Plan />} />
-                    <Route path='/addons' element={<Addons />} />
-                    <Route path='/summary' element={<Summary />} />
+                <Route path='/info' element={<Info />} />
+                <Route path='/plan' element={<Plan />} />
+                <Route path='/addons' element={<Addons />} />
+                <Route path='/summary' element={<Summary />} />
             </Routes>
-
         </SignatureContextProvider>
     );   
 }

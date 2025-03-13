@@ -6,6 +6,11 @@
     font-weight: $weight;
 }
 
+@mixin focus-button(){
+    border-color: $purplish-blue;
+    background-color: $magnolia;
+}
+
 .button__container{
     all: unset;
     display: flex;
@@ -17,9 +22,8 @@
     transition: 250ms;
     cursor: pointer;
 
-    &:hover, &:focus{
-        border-color: $purplish-blue;
-        background-color: $magnolia;
+    &:hover{
+        @include focus-button();
     }
     
     img{
@@ -45,4 +49,8 @@
             @include text-style($marine-blue, 500);
         }
     }
+}
+
+.selected-button{
+    @include focus-button();
 }

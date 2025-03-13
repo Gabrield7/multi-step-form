@@ -10,9 +10,9 @@ export const Plan = () => {
             subtitle={'You have the option of monthly or yearly billing.'}
         >
             <div className='plan__container'>
-                <PlanButton plan={'Arcade'}/>
-                <PlanButton plan={'Advanced'}/>
-                <PlanButton plan={'Pro'}/>
+                <PlanButton planName={'Arcade'}/>
+                <PlanButton planName={'Advanced'}/>
+                <PlanButton planName={'Pro'}/>
 
                 <Switch />
             </div>

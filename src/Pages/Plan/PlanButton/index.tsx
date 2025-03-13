@@ -4,27 +4,22 @@ import { availablePlans } from '@contexts/Models';
 import './PlanButton.scss';
 
 interface IPlanButtonProps {
-    plan: 'Arcade' | 'Advanced' | 'Pro';
+    planName: 'Arcade' | 'Advanced' | 'Pro';
 };
 
-export const PlanButton: React.FC<IPlanButtonProps> = ({ plan }) => {
-    //const context = useContext(SignatureContext);
-    const { cycle, setPlan } = useContext(SignatureContext);
-    const selectedPlan = availablePlans[plan];
-
-    // useEffect(() => {
-    //     console.log(context);
-    // }, [context]);
+export const PlanButton: React.FC<IPlanButtonProps> = ({ planName }) => {
+    const { plan, cycle, setPlan } = useContext(SignatureContext);
+    const selectedPlan = availablePlans[planName];
     
     return (
         <button 
             type='button'
-            className='button__container'
-            onClick={() => setPlan(plan)}
+            className={`button__container ${plan === planName? 'selected-button':''}`}
+            onClick={() => setPlan(planName)}
         >
             <img src={selectedPlan.iconPath}/>
             <div>
-                <h2>{plan}</h2>
+                <h2>{planName}</h2>
                 <p className='plan-price'>{`${
                     cycle === 'yearly'
                         ? `$${selectedPlan.price.yearly}/yr`
