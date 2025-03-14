@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { SignatureContext } from '@contexts/SignatureContext';
 import { availablePlans } from '@contexts/Models';
+import clsx from 'clsx';
 import './PlanButton.scss';
 
 interface IPlanButtonProps {
@@ -14,7 +15,7 @@ export const PlanButton: React.FC<IPlanButtonProps> = ({ planName }) => {
     return (
         <button 
             type='button'
-            className={`button__container ${plan === planName? 'selected-button':''}`}
+            className={clsx('button__container', { 'selected-button': plan === planName })}
             onClick={() => setPlan(planName)}
         >
             <img src={selectedPlan.iconPath}/>

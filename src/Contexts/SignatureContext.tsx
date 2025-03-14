@@ -8,11 +8,11 @@ type BillingCycle = 'monthly' | 'yearly';
 interface ISignatureContextProps {
     plan: PlanType;
     cycle: BillingCycle;
-    addons: AddonType[]
+    addons: AddonType[];
     price: number;
     setPlan: (plan: PlanType) => void;
     setCycle: (cycle: BillingCycle) => void;
-    setAddons: (addons: AddonType[]) => void;
+    setAddons: (addons: AddonType) => void;
     setPrice: (price: number) => void;
 };
 
@@ -42,8 +42,17 @@ const SignatureContextProvider = ({ children } : { children: ReactNode }) => {
 
     useEffect(calculatePrice, [plan, cycle, addons]);
 
+    const handleAddons = (addonName: AddonType) => {
+        setAddons(prevAddons => 
+            prevAddons.includes(addonName) 
+                ? prevAddons.filter(addon => addon !== addonName)
+                : [...prevAddons, addonName]
+        );
+    };
+
     return (
-        <SignatureContext.Provider value={{ plan, cycle, addons, price, setPlan, setCycle, setAddons, setPrice }}>
+        <SignatureContext.Provider 
+            value={{ plan, cycle, addons, price, setPlan, setCycle, setAddons: handleAddons, setPrice }}>
             {children}
         </SignatureContext.Provider>
     )

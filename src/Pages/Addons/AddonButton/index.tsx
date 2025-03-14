@@ -1,23 +1,31 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { availableAddons } from '@contexts/Models';
+import { SignatureContext } from '@contexts/SignatureContext';
+import clsx from 'clsx';
 import './AddonButton.scss';
 
 interface IAddonProps {
-    title: string,
-    subtitle: string,
-    extra: number
+    addonName: 'Online service' | 'Larger storage' | 'Customizable profile'
 }
 
-export const AddonButton: React.FC<IAddonProps> = (props) => {
-    const [check, setCheck] = useState(false);
+export const AddonButton: React.FC<IAddonProps> = ({ addonName }) => {
     const [hover, setHover] = useState(false);
 
+    const { plan, price, cycle, addons, setAddons } = useContext(SignatureContext);
+    //const { cycle, addons, setAddons } = useContext(SignatureContext);
+    const selectedAddon = availableAddons[addonName];
+
+    useEffect(() => {
+        console.log(plan, cycle, addons, price);
+    }, [plan, cycle, addons, price]);
+
     return (
-        <div className={`addon__container ${check || hover? 'checked':''}`}>
+        <div className={clsx('addon__container', { 'checked': addons.includes(addonName) || hover })}>
             <label className='custom-checkbox'>
                 <input 
                     type='checkbox'
-                    onChange={() => setCheck(!check)}
-                    checked={check}
+                    onChange={() => setAddons(addonName)}
+                    checked={addons.includes(addonName)}
                 />
                 <span 
                     onMouseEnter={() => setHover(true)}
@@ -25,10 +33,14 @@ export const AddonButton: React.FC<IAddonProps> = (props) => {
                 />
             </label>
             <div>
-                <h2>{props.title}</h2>
-                <p>{props.subtitle}</p>
+                <h2>{addonName}</h2>
+                <p>{selectedAddon.description}</p>
             </div>
-            <span className='extra'>{`+$${props.extra}/mo`}</span>
+            <span className='extra'>{`${
+                cycle === 'yearly'
+                ? `+$${selectedAddon.price.yearly}/yr`
+                : `+$${selectedAddon.price.monthly}/mo`
+            }`}</span>
         </div>
     )
 }
