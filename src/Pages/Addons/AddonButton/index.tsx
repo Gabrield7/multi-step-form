@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { availableAddons } from '@contexts/Models';
 import { SignatureContext } from '@contexts/SignatureContext';
 import clsx from 'clsx';
@@ -10,14 +10,9 @@ interface IAddonProps {
 
 export const AddonButton: React.FC<IAddonProps> = ({ addonName }) => {
     const [hover, setHover] = useState(false);
-
-    const { plan, price, cycle, addons, setAddons } = useContext(SignatureContext);
-    //const { cycle, addons, setAddons } = useContext(SignatureContext);
+    const { cycle, addons, setAddons } = useContext(SignatureContext);
+    
     const selectedAddon = availableAddons[addonName];
-
-    useEffect(() => {
-        console.log(plan, cycle, addons, price);
-    }, [plan, cycle, addons, price]);
 
     return (
         <div className={clsx('addon__container', { 'checked': addons.includes(addonName) || hover })}>

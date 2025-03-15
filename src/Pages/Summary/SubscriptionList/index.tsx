@@ -1,13 +1,20 @@
+import { useContext } from 'react';
 import { Service } from '../Service';
+import { SignatureContext } from '@contexts/SignatureContext';
+import { availableAddons, availablePlans } from '@contexts/Models';
 import './SubscriptionList.scss';
 
 export const SubscriptionList = () => {
+    const { plan, addons, cycle } = useContext(SignatureContext);
+    
     return (
         <div className='subscription-list__container'>
-            <Service type='plan' name='Arcade (monthly)' price={9}/>
+            <Service type='plan' name={`${plan} (${cycle})`} price={plan? availablePlans[plan].price[cycle]:0}/>
             <span></span>
-            <Service type='addon' name='Online service' price={1}/>
-            <Service type='addon' name='Larger storage' price={2}/>
+            {addons.map(addonName => {
+                const selectedAddon = availableAddons[addonName]
+                return <Service type='addon' name={addonName} price={selectedAddon.price[cycle]}/>
+            })}
         </div>
     )
 }
