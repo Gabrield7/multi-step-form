@@ -1,11 +1,11 @@
-import './Footer.scss';
 import { PageButton } from './PageButton';
+import './Footer.scss';
 
-export const Footer = () => {
+export const Footer = () => {   
     return (
         <div className='footer'>
-            <PageButton type={'Go Back'}/>
-            <PageButton type={'Next Step'}/>
+            <PageButton type='left'/>
+            <PageButton type='right'/>
         </div>
     )
 };

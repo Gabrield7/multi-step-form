@@ -11,10 +11,25 @@
 }
 
 .next{
+    display: flex;
     background-color: $marine-blue;
     color: $magnolia;
+    margin-left: auto;
 }
 
 .prev{
+    display: flex;
     color: $cool-gray;
+    margin-right: auto;
+}
+
+.confirm{
+    display: flex;
+    background-color: $purplish-blue;
+    color: $magnolia;
+    margin-left: auto;
+}
+
+.hidden{
+    display: none;
 }

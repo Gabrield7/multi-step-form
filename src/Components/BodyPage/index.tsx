@@ -2,8 +2,8 @@
 import './BodyPage.scss'
 
 interface IBodyPageProps{
-    title: string,
-    subtitle: string
+    title?: string,
+    subtitle?: string
     children: React.ReactNode
 }
 
