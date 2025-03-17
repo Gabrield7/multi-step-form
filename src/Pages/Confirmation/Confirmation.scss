@@ -1,0 +1,28 @@
+@use '@styles/variables' as *;
+
+.confirmation__container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-family: $main-font;
+
+    img{
+        margin: 2rem auto;
+    }
+
+    .thank-title{
+        font-weight: 700;
+        font-size: 24px;
+        color: $marine-blue;
+        margin-bottom: 1rem;
+    }
+
+    .thank-description{
+        font-weight: 400;
+        font-size: 16px;
+        color: $cool-gray;
+        margin-bottom: 2rem;
+        line-height: 1.5;
+    }
+}

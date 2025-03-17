@@ -4,7 +4,7 @@ import { Info } from './Pages/Info';
 import { Plan } from './Pages/Plan';
 import { Addons } from './Pages/Addons';
 import { Summary } from './Pages/Summary';
-//import { Confirmation } from "Pages/Confirmation";
+import { Confirmation } from "./Pages/Confirmation";
 
 export const AppRoutes = () => {
     return (
@@ -16,7 +16,7 @@ export const AppRoutes = () => {
                 <Route path='/plan' element={<Plan />} />
                 <Route path='/addons' element={<Addons />} />
                 <Route path='/summary' element={<Summary />} />
-                {/* <Route path='/confirmation' element={<Confirmation />} /> */}
+                <Route path='/confirmation' element={<Confirmation />} />
             </Routes>
         </SignatureContextProvider>
     );   

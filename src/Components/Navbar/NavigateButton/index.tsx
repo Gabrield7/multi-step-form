@@ -13,8 +13,12 @@ export const NavigateButton: React.FC<INavigateButtonProps> = (props) => {
     const [buttonClass, setButtonClass] = useState<string>('navigate-button normal');
 
     useEffect(() => {
-        const buttonClass = props.path === location.pathname? 'active':'normal'; 
-        setButtonClass(`navigate-button ${buttonClass}`)
+        if(location.pathname === '/confirmation' && props.path === '/summary'){
+            setButtonClass('navigate-button active')
+        }else{
+            const buttonClass = props.path === location.pathname? 'active':'normal'; 
+            setButtonClass(`navigate-button ${buttonClass}`)
+        }
         
     }, [location, props.path]);
     

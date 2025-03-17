@@ -9,7 +9,7 @@ export const PageButton: React.FC<IPageButtonProps> = (props) => {
     const location = useLocation();
     const navigateToPage = useNavigate();
 
-    const pages: string[] = ['/info', '/plan', '/addons', '/summary'];
+    const pages: string[] = ['/info', '/plan', '/addons', '/summary', '/confirmation'];
     const currentPage = pages.indexOf(location.pathname);
 
     const navigation = () => {
@@ -20,7 +20,6 @@ export const PageButton: React.FC<IPageButtonProps> = (props) => {
         }
     };
 
-    //const isLeftButton = props.type === 'left';
     const buttonClass = props.type === 'left'
         ? location.pathname === '/info' ? 'hidden' : 'prev'
         : location.pathname === '/summary' ? 'confirm' : 'next';

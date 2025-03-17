@@ -10,8 +10,8 @@ interface IBodyPageProps{
 export const BodyPage: React.FC<IBodyPageProps> = (props) => {
     return(
         <div className='page__container'>
-            <h1>{props.title}</h1>
-            <p className='subtitle'>{props.subtitle}</p>
+            {props.title && <h1>{props.title}</h1>}
+            {props.subtitle && <p className='subtitle'>{props.subtitle}</p>}
 
             {props.children}
         </div>
