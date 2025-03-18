@@ -7,12 +7,12 @@ import './Styles/reset.css'
 
 export function App() {
   return (
-    <div className='app'>
+    //<div className='app'>
       <BrowserRouter>
         <Navbar />
         <AppRoutes />
         <Footer />
       </BrowserRouter>
-    </div>
+    //</div>
   )
 }

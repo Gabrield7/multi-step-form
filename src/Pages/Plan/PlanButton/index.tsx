@@ -18,7 +18,7 @@ export const PlanButton: React.FC<IPlanButtonProps> = ({ planName }) => {
             className={clsx('button__container', { 'selected-button': plan === planName })}
             onClick={() => setPlan(planName)}
         >
-            <img src={selectedPlan.iconPath}/>
+            <img src={selectedPlan.img.path} alt={selectedPlan.img.alt}/>
             <div>
                 <h2>{planName}</h2>
                 <p className='plan-price'>{`${

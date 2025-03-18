@@ -14,6 +14,5 @@ export const Addons = () => {
                 <AddonButton addonName='Customizable profile'/>
             </div>
         </BodyPage>
-        
     )
 };

@@ -1,4 +1,3 @@
-//import React from 'react'
 import './BodyPage.scss'
 
 interface IBodyPageProps{
@@ -9,11 +8,14 @@ interface IBodyPageProps{
 
 export const BodyPage: React.FC<IBodyPageProps> = (props) => {
     return(
-        <div className='page__container'>
-            {props.title && <h1>{props.title}</h1>}
-            {props.subtitle && <p className='subtitle'>{props.subtitle}</p>}
+        <section className='page__container'>
+            {props.title && props.subtitle && 
+            <header>
+                <h1>{props.title}</h1>
+                <p className='subtitle'>{props.subtitle}</p>
+            </header>}
 
             {props.children}
-        </div>
+        </section>
     )
 }

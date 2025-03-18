@@ -7,9 +7,11 @@ export const Footer = () => {
     if(location.pathname === '/confirmation') return;
     
     return (
-        <div className='footer'>
+        <footer className='footer'> 
             <PageButton type='left'/>
             <PageButton type='right'/>
-        </div>
+        </footer>
     )
 };
+
+//className='footer'

@@ -1,6 +1,7 @@
 @use '@styles/variables' as *;
 
 .footer{
+    all: unset;
     display: flex;
     justify-content: space-between;
     background-color: $alabaster;

@@ -1,28 +1,33 @@
 @use '@styles/variables' as *;
 
+@mixin text-style($weight, $size, $color){
+    font-family: $main-font;
+    font-weight: $weight;
+    font-size: $size;
+    color: $color;
+}
+
 .page__container{
     display: flex;
     flex-direction: column;
     background-color: $alabaster;
     border-radius: .5rem;
-    margin: 1rem;
+    margin: 1rem 1rem 3rem;
     padding: 2rem 1.5rem;
-    position: relative;
+    gap: 1.5rem;
     z-index: 1;
 
-    h1{
-        font-family: $main-font;
-        font-weight: 700;
-        font-size: 24px;
-        color: $marine-blue;
-        margin-bottom: 1rem;
-    }
+    header{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
 
-    .subtitle{
-        font-family: $main-font;
-        font-weight: 400;
-        font-size: 16px;
-        color: $cool-gray;
-        margin-bottom: 2rem;
+        h1{
+            @include text-style(700, 24px, $marine-blue);
+        }
+    
+        .subtitle{
+            @include text-style(400, 16px, $cool-gray);
+        }
     }
 }

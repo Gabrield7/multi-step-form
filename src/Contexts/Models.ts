@@ -20,21 +20,30 @@ const availableAddons: Record<string, Addon> = {
 
 interface Plan {
     price: { monthly: number, yearly: number };
-    iconPath: string;
+    img: { path: string, alt: string}
 }
 
 const availablePlans: Record<string, Plan> = {
     'Arcade': {
         price: { monthly: 9, yearly: 90 },
-        iconPath: '/assets/images/icon-arcade.svg',
+        img: {
+            path: '/assets/images/icon-arcade.svg',
+            alt: 'Arcade plan icon'
+        }
     },
     'Advanced': {
         price: { monthly: 12, yearly: 120 },
-        iconPath: '/assets/images/icon-advanced.svg',
+        img: {
+            path: '/assets/images/icon-advanced.svg',
+            alt: 'Advanced plan icon'
+        }
     },
     'Pro': {
         price: { monthly: 15, yearly: 150 },
-        iconPath: '/assets/images/icon-pro.svg',
+        img: {
+            path: '/assets/images/icon-pro.svg',
+            alt: 'Pro plan icon'
+        }
     }
 } as const;
 
