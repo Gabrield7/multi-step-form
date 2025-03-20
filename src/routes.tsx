@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router';
-import { SignatureContextProvider } from '@contexts/Signature/SignatureContext';
+import { PlanProvider } from '@contexts/PlanContext';
 import { Info } from './Pages/Info';
 import { Plan } from './Pages/Plan';
 import { Addons } from './Pages/Addons';
@@ -8,7 +8,8 @@ import { Confirmation } from "./Pages/Confirmation";
 
 export const AppRoutes = () => {
     return (
-        <SignatureContextProvider>
+        // <SignatureContextProvider>
+        <PlanProvider>
             <Routes>
                 <Route path='*' element={<Navigate to='/info'/>} />
 
@@ -18,6 +19,7 @@ export const AppRoutes = () => {
                 <Route path='/summary' element={<Summary />} />
                 <Route path='/confirmation' element={<Confirmation />} />
             </Routes>
-        </SignatureContextProvider>
+        </PlanProvider>
+        // </SignatureContextProvider>
     );   
 }

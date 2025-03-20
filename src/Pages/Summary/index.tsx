@@ -1,12 +1,12 @@
 import { BodyPage } from '@components/BodyPage';
 import { SubscriptionList } from './SubscriptionList';
+import { PlanContext } from '@contexts/PlanContext';
 import { Service } from './Service';
 import { useContext } from 'react';
-import { SignatureContext } from '@contexts/Signature/SignatureContext';
 import './Summary.scss'
 
 export const Summary = () => {
-    const { price, cycle } = useContext(SignatureContext);
+    const { plan } = useContext(PlanContext);
     
     return(
         <BodyPage
@@ -15,7 +15,7 @@ export const Summary = () => {
         >
             <div className='summary__container'>
                 <SubscriptionList />
-                <Service type='total' name={`Total (per ${cycle})`} price={price}/>
+                <Service type='total' name={`Total (per ${plan.cycle})`} price={plan.price}/>
             </div>
         </BodyPage>
     )

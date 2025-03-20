@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
-import { availableAddons } from '@contexts/Signature/Models';
-import { SignatureContext } from '@contexts/Signature/SignatureContext';
+import { availableAddons } from '@contexts/PlanContext/Models';
+import { PlanContext } from '@contexts/PlanContext';
 import clsx from 'clsx';
 import './AddonButton.scss';
 
@@ -10,17 +10,17 @@ interface IAddonProps {
 
 export const AddonButton: React.FC<IAddonProps> = ({ addonName }) => {
     const [hover, setHover] = useState(false);
-    const { cycle, addons, setAddons } = useContext(SignatureContext);
+    const { plan, setAddons } = useContext(PlanContext);
     
     const selectedAddon = availableAddons[addonName];
 
     return (
-        <div className={clsx('addon__container', { 'checked': addons.includes(addonName) || hover })}>
+        <div className={clsx('addon__container', { 'checked': plan.addons.includes(addonName) || hover })}>
             <label className='custom-checkbox'>
                 <input 
                     type='checkbox'
                     onChange={() => setAddons(addonName)}
-                    checked={addons.includes(addonName)}
+                    checked={plan.addons.includes(addonName)}
                 />
                 <span 
                     onMouseEnter={() => setHover(true)}
@@ -32,7 +32,7 @@ export const AddonButton: React.FC<IAddonProps> = ({ addonName }) => {
                 <p>{selectedAddon.description}</p>
             </div>
             <span className='extra'>{`${
-                cycle === 'yearly'
+                plan.cycle === 'yearly'
                 ? `+$${selectedAddon.price.yearly}/yr`
                 : `+$${selectedAddon.price.monthly}/mo`
             }`}</span>

@@ -1,15 +1,20 @@
 import { useContext } from 'react';
 import { Service } from '../Service';
-import { SignatureContext } from '@contexts/Signature/SignatureContext';
-import { availableAddons, availablePlans } from '@contexts/Signature/Models';
+import { PlanContext } from '@contexts/PlanContext';
+import { availableAddons, availablePlans } from '@contexts/PlanContext/Models';
 import './SubscriptionList.scss';
 
 export const SubscriptionList = () => {
-    const { plan, addons, cycle } = useContext(SignatureContext);
+    const { plan } = useContext(PlanContext);
+    const { name, cycle, addons} = plan;
     
     return (
         <div className='subscription-list__container'>
-            <Service type='plan' name={`${plan} (${cycle})`} price={plan? availablePlans[plan].price[cycle]:0}/>
+            <Service 
+                type='plan' 
+                name={`${plan} (${cycle})`} 
+                price={name? availablePlans[name].price[cycle]:0}
+            />
             <span></span>
             {addons.map(addonName => {
                 const selectedAddon = availableAddons[addonName]

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { SignatureContext } from '@contexts/Signature/SignatureContext';
+import { PlanContext } from '@contexts/PlanContext';
 import { useNavigate } from 'react-router';
 import './Service.scss';
 
@@ -10,7 +10,7 @@ interface IServiceProps {
 }
 
 export const Service: React.FC<IServiceProps> = (props) => {
-    const { cycle } = useContext(SignatureContext);
+    const { plan } = useContext(PlanContext);
     const navigate = useNavigate();
     
     const colorStyle = (element: string) => {
@@ -33,7 +33,7 @@ export const Service: React.FC<IServiceProps> = (props) => {
                 {props.type === 'plan' && <button onClick={() => navigate('/plan')}>Change</button>}
             </div>
             <p 
-                className={`${colorStyle('p')}`}>{`+$${props.price}/${cycle === 'monthly'? 'mo':'yr'}`}
+                className={`${colorStyle('p')}`}>{`+$${props.price}/${plan.cycle === 'monthly'? 'mo':'yr'}`}
             </p>
         </div>
     )

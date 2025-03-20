@@ -1,16 +1,16 @@
 import { useContext } from 'react';
-import { SignatureContext } from '@contexts/Signature/SignatureContext';
+import { PlanContext } from '@contexts/PlanContext';
 import './ToggleButton.scss';
   
 export const ToggleButton = () => {   
-    const { cycle, setCycle } = useContext(SignatureContext);
+    const { plan, setPlan } = useContext(PlanContext);
 
     return(
         <label className='toggle'>
             <input 
                 type='checkbox'
-                checked={cycle === 'yearly'}
-                onChange={() => setCycle(cycle === 'monthly' ? 'yearly' : 'monthly')}
+                checked={plan.cycle === 'yearly'}
+                onChange={() => setPlan(prev => ({...prev, cycle: plan.cycle === 'monthly' ? 'yearly' : 'monthly'}))}
             />
             <span className='slider'></span>
         </label>

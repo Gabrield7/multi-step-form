@@ -1,5 +1,3 @@
-// import { UserContext } from '@contexts/User/UserContext'
-// import { useContext } from 'react';
 interface Validation{
     e: React.ChangeEvent<HTMLInputElement>,
     setError: React.Dispatch<React.SetStateAction<string>>
@@ -48,6 +46,7 @@ const emailValidation = (validation: Validation): void => {
         }
 
         validation.setError('');
+        
     } catch (error) {
         handleError(error, validation.setError)
     }
