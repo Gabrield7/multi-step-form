@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { SignatureContext } from '@contexts/SignatureContext';
-import { availablePlans } from '@contexts/Models';
+import { SignatureContext } from '@contexts/Signature/SignatureContext';
+import { availablePlans } from '@contexts/Signature/Models';
 import clsx from 'clsx';
 import './PlanButton.scss';
 

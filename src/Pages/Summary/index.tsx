@@ -2,7 +2,7 @@ import { BodyPage } from '@components/BodyPage';
 import { SubscriptionList } from './SubscriptionList';
 import { Service } from './Service';
 import { useContext } from 'react';
-import { SignatureContext } from '@contexts/SignatureContext';
+import { SignatureContext } from '@contexts/Signature/SignatureContext';
 import './Summary.scss'
 
 export const Summary = () => {

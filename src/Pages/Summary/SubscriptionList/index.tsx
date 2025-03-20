@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Service } from '../Service';
-import { SignatureContext } from '@contexts/SignatureContext';
-import { availableAddons, availablePlans } from '@contexts/Models';
+import { SignatureContext } from '@contexts/Signature/SignatureContext';
+import { availableAddons, availablePlans } from '@contexts/Signature/Models';
 import './SubscriptionList.scss';
 
 export const SubscriptionList = () => {

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { SignatureContext } from '@contexts/SignatureContext';
+import { SignatureContext } from '@contexts/Signature/SignatureContext';
 import { useNavigate } from 'react-router';
 import './Service.scss';
 

@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router';
-import { SignatureContextProvider } from '@contexts/SignatureContext';
+import { SignatureContextProvider } from '@contexts/Signature/SignatureContext';
 import { Info } from './Pages/Info';
 import { Plan } from './Pages/Plan';
 import { Addons } from './Pages/Addons';

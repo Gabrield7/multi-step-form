@@ -1,5 +1,7 @@
 import { useLocation, useNavigate } from 'react-router';
 import './PageButton.scss';
+import { useContext } from 'react';
+import { UserContext } from '@contexts/User/UserContext';
 
 interface IPageButtonProps{
     type: 'left' | 'right'
@@ -28,10 +30,16 @@ export const PageButton: React.FC<IPageButtonProps> = (props) => {
         ? 'Go Back'
         : location.pathname === '/summary' ? 'Confirm' : 'Next Step';
 
+    const { name, email, phone } = useContext(UserContext);
     return (
         <button 
             className={`page-button ${buttonClass}`}
-            onClick={() => navigation()}
+            onClick={() => {
+                navigation()
+                console.log(name)
+                console.log(email)
+                console.log(phone)
+            }}
         >
             {buttonText}
         </button>

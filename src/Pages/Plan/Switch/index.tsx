@@ -1,5 +1,5 @@
 import { ToggleButton } from './ToggleButton'
-import { SignatureContext } from '@contexts/SignatureContext';
+import { SignatureContext } from '@contexts/Signature/SignatureContext';
 import { useContext } from 'react';
 import clsx from 'clsx';
 import './Switch.scss'

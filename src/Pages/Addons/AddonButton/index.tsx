@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
-import { availableAddons } from '@contexts/Models';
-import { SignatureContext } from '@contexts/SignatureContext';
+import { availableAddons } from '@contexts/Signature/Models';
+import { SignatureContext } from '@contexts/Signature/SignatureContext';
 import clsx from 'clsx';
 import './AddonButton.scss';
 
