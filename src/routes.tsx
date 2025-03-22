@@ -1,16 +1,14 @@
 import { Routes, Route, Navigate } from 'react-router';
-import { PlanProvider } from '@contexts/PlanContext';
+import { AppProvider } from '@contexts/AppProvider';
 import { Info } from './Pages/Info';
 import { Plan } from './Pages/Plan';
 import { Addons } from './Pages/Addons';
 import { Summary } from './Pages/Summary';
 import { Confirmation } from "./Pages/Confirmation";
-import { UserProvider } from '@contexts/UserContext';
 
 export const AppRoutes = () => {
     return (
-        <UserProvider>
-        <PlanProvider>
+        <AppProvider>
             <Routes>
                 <Route path='*' element={<Navigate to='/info'/>} />
 
@@ -20,7 +18,6 @@ export const AppRoutes = () => {
                 <Route path='/summary' element={<Summary />} />
                 <Route path='/confirmation' element={<Confirmation />} />
             </Routes>
-        </PlanProvider>
-        </UserProvider>
+        </AppProvider>
     );   
 }
