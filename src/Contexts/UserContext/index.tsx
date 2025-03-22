@@ -3,7 +3,7 @@ import { createContext, ReactNode, useState } from 'react';
 interface IUser {
     name: string;
     email: string;
-    phone: number | null;
+    phone: string;
 }
 
 interface IUserContextProps {
@@ -15,7 +15,7 @@ const UserContext = createContext<IUserContextProps>({
     user: {
         name: '',
         email: '',
-        phone: null
+        phone: ''
     },
     setUser: () => {}
 });
@@ -24,7 +24,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<IUser>({
         name: '',
         email: '',
-        phone: null,
+        phone: '',
     });
 
     return (

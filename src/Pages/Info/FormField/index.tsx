@@ -1,19 +1,17 @@
-import { useState } from 'react';
-import { validation } from '../validation.ts';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import clsx from 'clsx';
 import './FormField.scss';
 
 interface IFormFieldProps{
-    label: string,
-    placeholder: string,
-    onlyNumbers?: boolean
+    label: string
+    placeholder: string
+    register: UseFormRegisterReturn
+    error?: FieldError
 }
 
 export const FormField: React.FC<IFormFieldProps> = (props) => {
-    const fieldID = props.label.toLocaleLowerCase().trim().replace(/\s+/g, '-');
+    const fieldID = props.label.split(' ')[0].toLowerCase();
     const type = fieldID === 'phone-number'? 'number':'text';
-    
-    const [error, setError] = useState('');
 
     return (
         <fieldset className='form-filed'>
@@ -22,14 +20,14 @@ export const FormField: React.FC<IFormFieldProps> = (props) => {
                 {/* <span className='error-message'>{error}</span> */}
             </div>
             <input 
-                id={fieldID} 
-                className={clsx({ 'error': error })}
-                placeholder={props.placeholder} 
-                onBlur={(e) => validation({e, setError}, fieldID)}
+                id={fieldID}
+                className={clsx({ 'error': props.error?.message })}
+                placeholder={props.placeholder}
+                {...props.register} 
                 autoComplete='off'
                 type={type}
             />
-            <span className='error-message'>{error}</span>
+            <span className='error-message'>{props.error?.message}</span>
         </fieldset>
     )
 };

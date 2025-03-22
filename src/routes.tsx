@@ -5,10 +5,11 @@ import { Plan } from './Pages/Plan';
 import { Addons } from './Pages/Addons';
 import { Summary } from './Pages/Summary';
 import { Confirmation } from "./Pages/Confirmation";
+import { UserProvider } from '@contexts/UserContext';
 
 export const AppRoutes = () => {
     return (
-        // <SignatureContextProvider>
+        <UserProvider>
         <PlanProvider>
             <Routes>
                 <Route path='*' element={<Navigate to='/info'/>} />
@@ -20,6 +21,6 @@ export const AppRoutes = () => {
                 <Route path='/confirmation' element={<Confirmation />} />
             </Routes>
         </PlanProvider>
-        // </SignatureContextProvider>
+        </UserProvider>
     );   
 }

@@ -28,11 +28,13 @@ export const PageButton: React.FC<IPageButtonProps> = (props) => {
         ? 'Go Back'
         : location.pathname === '/summary' ? 'Confirm' : 'Next Step';
 
-
     return (
         <button 
             className={`page-button ${buttonClass}`}
             onClick={() => navigation()}
+            {...(location.pathname === '/info'
+                ? {form: 'user-form', type: 'submit'}
+                : {})}
         >
             {buttonText}
         </button>
