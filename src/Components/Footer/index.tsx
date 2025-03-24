@@ -8,10 +8,8 @@ export const Footer = () => {
     
     return (
         <footer className='footer'> 
-            <PageButton type='left'/>
-            <PageButton type='right'/>
+            <PageButton type='back'/>
+            <PageButton type='next'/>
         </footer>
     )
 };
-
-//className='footer'

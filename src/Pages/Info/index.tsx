@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import './Info.scss';
+import { PageValidationContext } from '@contexts/PageValidationContext';
+//import { useNavigate } from 'react-router';
 
 const userSchema = z.object({
     name: z.string()
@@ -23,6 +25,8 @@ type userSchema = z.infer<typeof userSchema>
 
 export const Info = () => {
     const { user, setUser } = useContext(UserContext);
+    const {  setPageStatus } = useContext(PageValidationContext);
+    //const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(userSchema),
@@ -34,9 +38,20 @@ export const Info = () => {
         }
     });
 
-    const onSubmit = (data: userSchema) => {
-        setUser(data)
+    const onValid = (data: userSchema) => {
+        setUser(data);
+        setPageStatus('/plan', true);
+        // setPageStatus(prev => ({
+        //     ...prev,
+        //     '/plan': true
+        // }));
+
+        //navigate('/plan')
     };
+
+    // const onInvalid = (errors: FieldErrors) => {
+    //     console.log(errors)
+    // };
     
     return(
         <BodyPage 
@@ -46,7 +61,7 @@ export const Info = () => {
             <form 
                 id='user-form' 
                 className='info__container' 
-                onSubmit={handleSubmit(onSubmit, () => console.log(user))}
+                onSubmit={handleSubmit(onValid)}
             >
                 <FormField 
                     label='Name' 

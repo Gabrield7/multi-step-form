@@ -22,18 +22,23 @@
     font-weight: 500;
     font-size: 16px;
     transition: 250ms;
+}
+
+.normal{
     cursor: pointer;
-    //@include buttonState(transparent, $magnolia, $magnolia);
+    @include buttonState(transparent, $magnolia, $magnolia);
 
     &:hover{
         @include buttonState($light-blue, $light-blue, $marine-blue)
     }
 }
 
-.normal{
-    @include buttonState(transparent, $magnolia, $magnolia);
+.active{
+    cursor: pointer;
+    @include buttonState($light-blue, $light-blue, $marine-blue)
 }
 
-.active{
-    @include buttonState($light-blue, $light-blue, $marine-blue)
+.disabled{
+    cursor: auto;
+    @include buttonState(transparent, $magnolia, $magnolia)
 }
