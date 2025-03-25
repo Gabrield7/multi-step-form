@@ -1,21 +1,15 @@
-//import { createContext, Dispatch, ReactNode, SetStateAction, useState } from 'react';
-import { createContext, ReactNode, useState } from 'react';
-import { useNavigate } from 'react-router';
-
-//type PageStatus = { [path: string]: boolean };
+import { createContext, ReactNode, useEffect, useState } from 'react';
 
 type PagePath = '/info' | '/plan' | '/addons' | '/summary' | '/confirmation';
 
 type PageStatus = {
-  [key in PagePath]: boolean;
+    [key in PagePath]: boolean;
 };
-
 
 interface IPageValidationContextProps{
     pageStatus: PageStatus
-    setPageStatus: (path: string, status: boolean) => void // Dispatch<SetStateAction<PageStatus>> // 
+    validatePage: (path: keyof PageStatus, status: boolean) => void // Dispatch<SetStateAction<PageStatus>>
 };
-
 
 const PageValidationContext = createContext<IPageValidationContextProps>({
     pageStatus: {
@@ -23,9 +17,9 @@ const PageValidationContext = createContext<IPageValidationContextProps>({
         '/plan': false,
         '/addons': false,
         '/summary': false,
-        '/confirmation': false
+        '/confirmation': false,
     },
-    setPageStatus: () => {}
+    validatePage: () => {}
 });
 
 const PageValidationProvider = ({ children }: { children: ReactNode }) => {
@@ -37,20 +31,19 @@ const PageValidationProvider = ({ children }: { children: ReactNode }) => {
         '/confirmation': false,
     });
 
-    const navigate = useNavigate();
-    const validPage = (path: string, status: boolean) => {
-        console.log('Atualizando', path, 'para', status);
-        
+    const validatePage = (path: keyof PageStatus, status: boolean) => {
         setPageStatus(prev => ({
             ...prev,
             [path]: status
         }));
-
-        navigate(path)
     };
 
+    useEffect(() => {
+        console.log('Provider renderizou', pageStatus);
+      }, [pageStatus]);
+
     return (
-        <PageValidationContext.Provider value={{pageStatus, setPageStatus: validPage}}>
+        <PageValidationContext.Provider value={{pageStatus, validatePage }}>
             {children}
         </PageValidationContext.Provider>
     )

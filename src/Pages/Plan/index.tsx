@@ -9,13 +9,13 @@ export const Plan = () => {
             title={'Select your plan'}
             subtitle={'You have the option of monthly or yearly billing.'}
         >
-            <div className='plan__container'>
+            <section className='plan__container'>
                 <PlanButton planName={'Arcade'}/>
                 <PlanButton planName={'Advanced'}/>
                 <PlanButton planName={'Pro'}/>
 
                 <Switch />
-            </div>
+            </section>
         </BodyPage>
     )
 };

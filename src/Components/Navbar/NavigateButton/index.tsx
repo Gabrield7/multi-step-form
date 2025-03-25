@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-//import { useLocation } from 'react-router';
 import { PageValidationContext } from '@contexts/PageValidationContext';
 import './NavigateButton.scss';
 
@@ -16,33 +15,24 @@ export const NavigateButton: React.FC<INavigateButtonProps> = (props) => {
     const navigate = useNavigate();
     
     const navigateToPage = () => {
-        console.log(pageStatus[props.path]);
+        const isPageEnabled = pageStatus[props.path] ?? false;
         
-        if(pageStatus[props.path]) navigate(props.path)
+        if(isPageEnabled) navigate(props.path)
     }
 
     useEffect(() => {
-        console.log(pageStatus);
-        // if(location.pathname === '/confirmation' && props.path === '/summary'){
-        //     setButtonClass('active')
-        //}else{
-            //const buttonClass = props.path === location.pathname? 'active':'normal';
+        if(location.pathname === '/confirmation' && props.path === '/summary'){
+            setButtonClass('active')
+        }else{
             if(pageStatus[props.path]){
-                if(props.path === location.pathname){
-                    setButtonClass('active')
-                    console.log('here');
-                }else{
-                    setButtonClass('normal')
-                }
+                const buttonClass = props.path === location.pathname? 'active':'normal';
+                setButtonClass(buttonClass)
             }else{
                 setButtonClass('disabled')
             }
-            //setButtonClass(buttonClass)
-        //}
+        }
     }, [location, props.path, pageStatus]);
     
-
-
     return (
         <button 
             className={`navigate-button ${buttonClass}`}

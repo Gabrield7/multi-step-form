@@ -13,10 +13,10 @@ export const Summary = () => {
             title={'Finishing up'}
             subtitle={'Double check everything looks OK before confirming.'}
         >
-            <div className='summary__container'>
+            <section className='summary__container'>
                 <SubscriptionList />
                 <Service type='total' name={`Total (per ${plan.cycle})`} price={plan.price}/>
-            </div>
+            </section>
         </BodyPage>
     )
 };

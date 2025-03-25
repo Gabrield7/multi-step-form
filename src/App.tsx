@@ -1,4 +1,5 @@
 import { BrowserRouter } from "react-router";
+import { AppProvider } from '@contexts/AppProvider';
 import { Navbar } from "./Components/Navbar"
 import { AppRoutes } from "./routes.tsx"
 import { Footer } from "./Components/Footer/index.tsx";
@@ -7,10 +8,12 @@ import './Styles/reset.css'
 
 export function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <AppRoutes />
-      <Footer />
-    </BrowserRouter>
+    <AppProvider>
+      <BrowserRouter>
+        <Navbar />
+        <AppRoutes />
+        <Footer />
+      </BrowserRouter>
+    </AppProvider>
   )
 }

@@ -8,7 +8,7 @@ interface IBodyPageProps{
 
 export const BodyPage: React.FC<IBodyPageProps> = (props) => {
     return(
-        <section className='page__container'>
+        <main className='page__container'>
             {props.title && props.subtitle && 
             <header>
                 <h1>{props.title}</h1>
@@ -16,6 +16,6 @@ export const BodyPage: React.FC<IBodyPageProps> = (props) => {
             </header>}
 
             {props.children}
-        </section>
+        </main>
     )
 }
