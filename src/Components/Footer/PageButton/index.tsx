@@ -1,40 +1,35 @@
-//import { useLocation, useNavigate } from 'react-router';
 import { useLocation } from 'react-router';
+import { ButtonHTMLAttributes } from 'react';
 import './PageButton.scss';
 
 interface IPageButtonProps{
     type: 'back' | 'next'
 }
 
-export const PageButton: React.FC<IPageButtonProps> = (props) => {   
+export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {   
     const location = useLocation();
-    //const navigateToPage = useNavigate();
-
-    //const pages: string[] = ['/info', '/plan', '/addons', '/summary', '/confirmation'];
-    //const currentPage = pages.indexOf(location.pathname);
-
-    // const navigation = () => {
-    //     if(props.type === 'back'){
-    //         if (currentPage > 0) navigateToPage(pages[currentPage - 1]);
-    //     } else {
-    //         if (currentPage < pages.length - 1) navigateToPage(pages[currentPage + 1]);
-    //     }
-    // };
-
-    const buttonClass = props.type === 'back'
-        ? location.pathname === '/info' ? 'hidden' : 'prev'
-        : location.pathname === '/summary' ? 'confirm' : 'next';
     
-    const buttonText = props.type === 'back'
-        ? 'Go Back'
-        : location.pathname === '/summary' ? 'Confirm' : 'Next Step';
+    type PagePaths = '/info' | '/plan' | '/addons' | '/summary' | '/confirmation';
+    const pathName = location.pathname as PagePaths
 
+    const buttonClass = type === 'back'
+        ? pathName === '/info' ? 'hidden' : 'prev'
+        : pathName === '/summary' ? 'confirm' : 'next';
+    
+    const buttonText = type === 'back'
+        ? 'Go Back'
+        : pathName === '/summary' ? 'Confirm' : 'Next Step';
+
+    const formID = (path: PagePaths): ButtonHTMLAttributes<HTMLButtonElement> => {       
+        const id = `${path.split('/')[1]}-form`;
+
+        return {form: id, type: 'submit'}
+    }
+    
     return (
         <button 
             className={`page-button ${buttonClass}`}
-            {...(location.pathname === '/info'
-                ? {form: 'user-form', type: 'submit'}
-                : {})} //onClick: () => navigation()
+            {...formID(pathName)}
         >
             {buttonText}
         </button>

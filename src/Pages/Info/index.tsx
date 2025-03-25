@@ -45,10 +45,6 @@ export const Info = () => {
         
         navigate('/plan');
     };
-
-    // const onInvalid = (errors: FieldErrors) => {
-    //     console.log(errors)
-    // };
     
     return(
         <BodyPage 
@@ -56,7 +52,7 @@ export const Info = () => {
             subtitle={'Please provide your name, email address and phone number.'}
         >
             <form 
-                id='user-form' 
+                id='info-form' 
                 className='info__container' 
                 onSubmit={handleSubmit(onValid)}
             >

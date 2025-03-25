@@ -9,25 +9,25 @@ interface IFormFieldProps{
     error?: FieldError
 }
 
-export const FormField: React.FC<IFormFieldProps> = (props) => {
-    const fieldID = props.label.split(' ')[0].toLowerCase();
-    const type = fieldID === 'phone-number'? 'number':'text';
+export const FormField: React.FC<IFormFieldProps> = ({ label, placeholder, register, error }) => {
+    const fieldID = label.split(' ')[0].toLowerCase();
+    //const type = fieldID === 'phone-number'? 'number':'text';
 
     return (
         <fieldset className='form-filed'>
             <div className='labels'>
-                <label htmlFor={fieldID}>{props.label}</label>
+                <label htmlFor={fieldID}>{label}</label>
                 {/* <span className='error-message'>{error}</span> */}
             </div>
             <input 
                 id={fieldID}
-                className={clsx({ 'error': props.error?.message })}
-                placeholder={props.placeholder}
-                {...props.register} 
+                className={clsx({ 'error': error?.message })}
+                placeholder={placeholder}
                 autoComplete='off'
-                type={type}
+                {...register} 
+                // type={type}
             />
-            <span className='error-message'>{props.error?.message}</span>
+            <span className='error-message'>{error?.message}</span>
         </fieldset>
     )
 };

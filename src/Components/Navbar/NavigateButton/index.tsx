@@ -37,10 +37,6 @@ export const NavigateButton: React.FC<INavigateButtonProps> = (props) => {
         <button 
             className={`navigate-button ${buttonClass}`}
             onClick={navigateToPage}
-            // onClick={() => {
-            //     console.log(pageStatus);
-            //     navigate(props.path)
-            // }}
         > 
             {props.label} 
         </button>

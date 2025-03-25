@@ -40,7 +40,7 @@ const PageValidationProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         console.log('Provider renderizou', pageStatus);
-      }, [pageStatus]);
+    }, [pageStatus]);
 
     return (
         <PageValidationContext.Provider value={{pageStatus, validatePage }}>
