@@ -1,5 +1,15 @@
+@use '@styles/variables' as *;
+
 .plan__container{
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+.error-message{
+    font-family: $main-font;
+    font-weight: 500;
+    font-size: 16px;
+    color: $strawberry-red;
+    height: 1rem;
 }

@@ -10,29 +10,22 @@ import { z } from 'zod';
 import './Plan.scss';
 
 const planSchema = z.object({
-    plan: z.enum(['Arcade', 'Advanced', 'Pro'], {
-        required_error: 'Select a plan first',
-    })
+    plan: z.enum(["Arcade", "Advanced", "Pro"]).nullable().refine(
+        (value) => value !== null, 
+        { message: "Select a plan first" }
+    )
 });
-
-//type PlanSchema = z.infer<typeof planSchema>
 
 export const Plan = () => {
     const { validatePage } = useContext(PageValidationContext);
     const navigate = useNavigate();
     
-    const { register, handleSubmit } = useForm({ //, formState: { errors }
+    const { register, handleSubmit, formState: { errors } } = useForm({ //, 
         resolver: zodResolver(planSchema),
     });
 
-    const onValid = () => { //data: PlanSchema
-        //setUser(data);
-        //console.log(data.plan);
-        console.log('submitted');
-        
-        
+    const onValid = () => {
         validatePage('/addons', true);
-        
         navigate('/addons');
     };
     
@@ -46,18 +39,11 @@ export const Plan = () => {
                 className='plan__container'
                 onSubmit={handleSubmit(onValid)}
             >
-                <PlanButton 
-                    planName={'Arcade'}
-                    register={register('plan')}
-                />
-                <PlanButton 
-                    planName={'Advanced'}
-                    register={register('plan')}
-                />
-                <PlanButton 
-                    planName={'Pro'}
-                    register={register('plan')}
-                />
+                <PlanButton planName={'Arcade'} register={register('plan')}/>
+                <PlanButton planName={'Advanced'} register={register('plan')}/>
+                <PlanButton planName={'Pro'} register={register('plan')}/>
+                
+                {errors.plan && <span className='error-message'>{errors.plan?.message}</span>}
 
                 <Switch />
             </form>

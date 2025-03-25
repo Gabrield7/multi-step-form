@@ -1,36 +1,29 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { PlanContext } from '@contexts/PlanContext';
 import { availablePlans } from '@contexts/PlanContext/Models';
-import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import clsx from 'clsx';
 import './PlanButton.scss';
 
 interface IPlanButtonProps {
     planName: 'Arcade' | 'Advanced' | 'Pro';
     register?: UseFormRegisterReturn
-    error?: FieldError
 };
 
 export const PlanButton: React.FC<IPlanButtonProps> = ({ planName, register }) => {
     const { plan, setPlan } = useContext(PlanContext);
     const selectedPlan = availablePlans[planName];
-
-    const planID = `${planName.toLowerCase()}-button`;
-
-    useEffect(() => {
-        console.log(plan);
-    }, [plan])
     
     return (
-        <label htmlFor={planID} className={clsx('button__container', { 'selected-button': plan.name === planName })}>
+        <label htmlFor={planName} className={clsx('button__container', { 'selected-button': plan.name === planName })}>
             <input
                 type='radio'
-                id={planID}
+                id={planName}
                 value={planName}
                 checked={plan.name === planName}
-                style={{display: 'none'}}
-                onChange={() => setPlan(prev => ({ ...prev, name: planName }))}
                 {...register}
+                onChange={() => setPlan(prev => ({ ...prev, name: planName }))}
+                hidden
             />
             <img src={selectedPlan.img.path} alt={selectedPlan.img.alt}/>
             <div>
