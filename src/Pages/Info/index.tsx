@@ -2,12 +2,12 @@ import { BodyPage } from '@components/BodyPage';
 import { FormField } from './FormField';
 import { useContext } from 'react';
 import { UserContext } from '@contexts/UserContext';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { PageValidationContext } from '@contexts/PageValidationContext';
-import './Info.scss';
 import { useNavigate } from 'react-router';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import './Info.scss';
 
 const userSchema = z.object({
     name: z.string()
@@ -21,7 +21,7 @@ const userSchema = z.object({
         .regex(/^(?:\D*\d\D*){8,15}$/, { message: 'Invalid phone number' }),
 });
 
-type userSchema = z.infer<typeof userSchema>
+type UserSchema = z.infer<typeof userSchema>
 
 export const Info = () => {
     const { user, setUser } = useContext(UserContext);
@@ -38,7 +38,7 @@ export const Info = () => {
         }
     });
 
-    const onValid = (data: userSchema) => {
+    const onValid = (data: UserSchema) => {
         setUser(data);
 
         validatePage('/plan', true);

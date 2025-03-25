@@ -11,7 +11,6 @@ interface IFormFieldProps{
 
 export const FormField: React.FC<IFormFieldProps> = ({ label, placeholder, register, error }) => {
     const fieldID = label.split(' ')[0].toLowerCase();
-    //const type = fieldID === 'phone-number'? 'number':'text';
 
     return (
         <fieldset className='form-filed'>
@@ -24,8 +23,7 @@ export const FormField: React.FC<IFormFieldProps> = ({ label, placeholder, regis
                 className={clsx({ 'error': error?.message })}
                 placeholder={placeholder}
                 autoComplete='off'
-                {...register} 
-                // type={type}
+                {...register}
             />
             <span className='error-message'>{error?.message}</span>
         </fieldset>

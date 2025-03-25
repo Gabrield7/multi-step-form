@@ -1,10 +1,9 @@
 import { useLocation } from 'react-router';
-import { ButtonHTMLAttributes } from 'react';
 import './PageButton.scss';
 
 interface IPageButtonProps{
     type: 'back' | 'next'
-}
+};
 
 export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {   
     const location = useLocation();
@@ -19,17 +18,14 @@ export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {
     const buttonText = type === 'back'
         ? 'Go Back'
         : pathName === '/summary' ? 'Confirm' : 'Next Step';
-
-    const formID = (path: PagePaths): ButtonHTMLAttributes<HTMLButtonElement> => {       
-        const id = `${path.split('/')[1]}-form`;
-
-        return {form: id, type: 'submit'}
-    }
     
     return (
         <button 
+            type='submit'
             className={`page-button ${buttonClass}`}
-            {...formID(pathName)}
+            {...(buttonClass === 'next' 
+                ? { form: `${pathName.split('/')[1]}-form` } 
+                : {})}
         >
             {buttonText}
         </button>
