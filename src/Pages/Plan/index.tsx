@@ -10,7 +10,7 @@ import { z } from 'zod';
 import './Plan.scss';
 
 const planSchema = z.object({
-    plan: z.enum(["Arcade", "Advanced", "Pro"]).nullable().refine(
+    plan: z.enum(['Arcade', 'Advanced', 'Pro']).nullable().refine(
         (value) => value !== null, 
         { message: "Select a plan first" }
     )
@@ -42,7 +42,7 @@ export const Plan = () => {
                 <PlanButton planName={'Arcade'} register={register('plan')}/>
                 <PlanButton planName={'Advanced'} register={register('plan')}/>
                 <PlanButton planName={'Pro'} register={register('plan')}/>
-                
+
                 {errors.plan && <span className='error-message'>{errors.plan?.message}</span>}
 
                 <Switch />

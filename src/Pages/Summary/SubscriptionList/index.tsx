@@ -12,7 +12,7 @@ export const SubscriptionList = () => {
         <div className='subscription-list__container'>
             <Service 
                 type='plan' 
-                name={`${plan} (${cycle})`} 
+                name={`${name} (${cycle})`} 
                 price={name? availablePlans[name].price[cycle]:0}
             />
             <span></span>
