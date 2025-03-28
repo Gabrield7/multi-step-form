@@ -6,7 +6,7 @@ import './SubscriptionList.scss';
 
 export const SubscriptionList = () => {
     const { plan } = useContext(PlanContext);
-    const { name, cycle, addons} = plan;
+    const { name, cycle, addons } = plan;
     
     return (
         <div className='subscription-list__container'>

@@ -11,6 +11,10 @@
     background-color: $magnolia;
 }
 
+input:checked + .button__container{
+    @include focus-button();
+}
+
 .button__container{
     all: unset;
     display: flex;
@@ -38,7 +42,6 @@
 
         h2{
             @include text-style($marine-blue, 700);
-            //font-size: 18px;
         }
 
         .plan-price{
@@ -49,8 +52,4 @@
             @include text-style($marine-blue, 500);
         }
     }
-}
-
-.selected-button{
-    @include focus-button();
 }

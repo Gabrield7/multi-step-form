@@ -13,7 +13,7 @@ interface IPlan {
 }
 interface IPlanContextProps {
     plan: IPlan
-    setPlan: React.Dispatch<React.SetStateAction<IPlan>>
+    setPlan: (planName: PlanName) => void
     setAddons: (addonName: AddonType) => void
 };
 
@@ -54,8 +54,12 @@ const PlanProvider = ({ children } : { children: ReactNode }) => {
         }));
     };
 
+    const handlePlan = (planName: PlanName) => {
+        setPlan(prev => ({...prev, name: planName}))
+    }
+
     return (
-        <PlanContext.Provider value={{ plan, setPlan, setAddons: handleAddons }}>
+        <PlanContext.Provider value={{ plan, setPlan: handlePlan, setAddons: handleAddons }}>
             {children}
         </PlanContext.Provider>
     )

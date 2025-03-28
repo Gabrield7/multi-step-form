@@ -60,6 +60,7 @@ export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {
     };
 
     const buttonProps = getButtonConfig();
+    if(!buttonProps) return null;
 
     return <button {...buttonProps}> {buttonProps?.text} </button>
 

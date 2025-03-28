@@ -40,9 +40,7 @@ export const Info = () => {
 
     const onValid = (data: UserSchema) => {
         setUser(data);
-
         validatePage('/plan', true);
-        
         navigate('/plan');
     };
     

@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import './Plan.scss';
+import { PlanContext } from '@contexts/PlanContext';
 
 const planSchema = z.object({
     plan: z.enum(['Arcade', 'Advanced', 'Pro']).nullable().refine(
@@ -16,7 +17,10 @@ const planSchema = z.object({
     )
 });
 
+type PlanSchema = z.infer<typeof planSchema>
+
 export const Plan = () => {
+    const { setPlan } = useContext(PlanContext);
     const { validatePage } = useContext(PageValidationContext);
     const navigate = useNavigate();
     
@@ -24,7 +28,8 @@ export const Plan = () => {
         resolver: zodResolver(planSchema),
     });
 
-    const onValid = () => {
+    const onValid = (data: PlanSchema) => {
+        setPlan(data.plan);
         validatePage('/addons', true);
         navigate('/addons');
     };
