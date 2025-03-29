@@ -10,7 +10,7 @@ export const ToggleButton = () => {
             <input 
                 type='checkbox'
                 checked={plan.cycle === 'yearly'}
-                onChange={() => setPlan(prev => ({...prev, cycle: plan.cycle === 'monthly' ? 'yearly' : 'monthly'}))}
+                onChange={() => setPlan('cycle', plan.cycle === 'monthly' ? 'yearly' : 'monthly')}
             />
             <span className='slider'></span>
         </label>

@@ -8,12 +8,12 @@ import './Styles/reset.css'
 
 export function App() {
   return (
-    <AppProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AppProvider>
         <Navbar />
         <AppRoutes />
         <Footer />
-      </BrowserRouter>
-    </AppProvider>
+      </AppProvider>
+    </BrowserRouter>
   )
 }

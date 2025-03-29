@@ -7,6 +7,7 @@ import './Summary.scss'
 
 export const Summary = () => {
     const { plan } = useContext(PlanContext);
+
     
     return(
         <BodyPage

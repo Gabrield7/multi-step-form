@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import './Info.scss';
+//import { useBlockedNavigation } from '@contexts/PageValidationContext/redirect';
 
 const userSchema = z.object({
     name: z.string()
@@ -24,6 +25,8 @@ const userSchema = z.object({
 type UserSchema = z.infer<typeof userSchema>
 
 export const Info = () => {
+    //useBlockedNavigation()
+    
     const { user, setUser } = useContext(UserContext);
     const { validatePage } = useContext(PageValidationContext);
     const navigate = useNavigate();

@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import './Plan.scss';
 import { PlanContext } from '@contexts/PlanContext';
+//import { useBlockedNavigation } from '@contexts/PageValidationContext/redirect';
 
 const planSchema = z.object({
     plan: z.enum(['Arcade', 'Advanced', 'Pro']).nullable().refine(
@@ -20,6 +21,8 @@ const planSchema = z.object({
 type PlanSchema = z.infer<typeof planSchema>
 
 export const Plan = () => {
+    //useBlockedNavigation()
+    
     const { setPlan } = useContext(PlanContext);
     const { validatePage } = useContext(PageValidationContext);
     const navigate = useNavigate();
@@ -29,7 +32,7 @@ export const Plan = () => {
     });
 
     const onValid = (data: PlanSchema) => {
-        setPlan(data.plan);
+        setPlan('name', data.plan);
         validatePage('/addons', true);
         navigate('/addons');
     };

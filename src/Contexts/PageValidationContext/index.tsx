@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useState } from 'react';
 
 type PagePath = '/info' | '/plan' | '/addons' | '/summary' | '/confirmation';
 
@@ -37,10 +37,6 @@ const PageValidationProvider = ({ children }: { children: ReactNode }) => {
             [path]: status
         }));
     };
-
-    useEffect(() => {
-        console.log('Provider renderizou', pageStatus);
-    }, [pageStatus]);
 
     return (
         <PageValidationContext.Provider value={{pageStatus, validatePage }}>
