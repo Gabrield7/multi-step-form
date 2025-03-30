@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, Dispatch, ReactNode, SetStateAction, useState } from 'react';
 
 type PagePath = '/info' | '/plan' | '/addons' | '/summary' | '/confirmation';
 
@@ -9,6 +9,8 @@ type PageStatus = {
 interface IPageValidationContextProps{
     pageStatus: PageStatus
     validatePage: (path: keyof PageStatus, status: boolean) => void // Dispatch<SetStateAction<PageStatus>>
+    previousPage: string
+    setPreviousPage: Dispatch<SetStateAction<string>>
 };
 
 const PageValidationContext = createContext<IPageValidationContextProps>({
@@ -19,7 +21,9 @@ const PageValidationContext = createContext<IPageValidationContextProps>({
         '/summary': false,
         '/confirmation': false,
     },
-    validatePage: () => {}
+    validatePage: () => {},
+    previousPage: '/info',
+    setPreviousPage: () => {}
 });
 
 const PageValidationProvider = ({ children }: { children: ReactNode }) => {
@@ -31,6 +35,8 @@ const PageValidationProvider = ({ children }: { children: ReactNode }) => {
         '/confirmation': false,
     });
 
+    const [previousPage, setPreviousPage] = useState('/info');
+
     const validatePage = (path: keyof PageStatus, status: boolean) => {
         setPageStatus(prev => ({
             ...prev,
@@ -39,7 +45,7 @@ const PageValidationProvider = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <PageValidationContext.Provider value={{pageStatus, validatePage }}>
+        <PageValidationContext.Provider value={{pageStatus, validatePage, previousPage, setPreviousPage }}>
             {children}
         </PageValidationContext.Provider>
     )

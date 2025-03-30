@@ -16,7 +16,15 @@ export const AppRoutes = () => {
             <Route path='/addons' element={<Addons />} />
             <Route path='/summary' element={<Summary />} />
             <Route path='/confirmation' element={<Confirmation />} /> */}
-            <Route path='/info' element={<Info />} />
+            {/* <Route path='/info' element={<Info />} /> */}
+            <Route
+                path='/info'
+                element={
+                    <ValidateRoute path='/info'>
+                        <Info />
+                    </ValidateRoute>
+                }
+            />
 
             <Route
                 path='/plan'

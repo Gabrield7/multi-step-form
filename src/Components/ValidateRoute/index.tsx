@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Navigate, useLocation } from 'react-router';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import { PageValidationContext } from '@contexts/PageValidationContext';
 
 interface ValidateRouteProps{
@@ -9,13 +9,11 @@ interface ValidateRouteProps{
 
 export const ValidateRoute: React.FC<ValidateRouteProps> = ({ path, children }) => {
     const { pageStatus } = useContext(PageValidationContext);
-    const location = useLocation();
-                
-    if (!pageStatus[path]) {
-        return <Navigate to={location.pathname} replace />;
+    const navigate = useNavigate();
 
-        //return <Route path={path} element={<Info />} />
-    }
-
+    useEffect(() => {    
+        if (!pageStatus[path]) navigate(-1);
+    }, [pageStatus, path, navigate]);
+    
     return <>{children}</>;
 };
