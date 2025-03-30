@@ -1,11 +1,10 @@
-import { useContext } from 'react';
 import { Service } from '../Service';
-import { PlanContext } from '@contexts/PlanContext';
 import { availableAddons, availablePlans } from '@contexts/PlanContext/Models';
 import './SubscriptionList.scss';
+import { usePlanStore } from '@stores/PlanStore';
 
 export const SubscriptionList = () => {
-    const { plan } = useContext(PlanContext);
+    const { plan } = usePlanStore();
     const { name, cycle, addons } = plan;
     
     return (

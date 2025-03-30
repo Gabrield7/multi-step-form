@@ -1,7 +1,6 @@
-import { useContext } from 'react';
-import { PlanContext } from '@contexts/PlanContext';
 import { useNavigate } from 'react-router';
 import './Service.scss';
+import { usePlanStore } from '@stores/PlanStore';
 
 interface IServiceProps {
     type: 'plan' | 'addon' | 'total',
@@ -10,7 +9,7 @@ interface IServiceProps {
 }
 
 export const Service: React.FC<IServiceProps> = (props) => {
-    const { plan } = useContext(PlanContext);
+    const { plan } = usePlanStore();
     const navigate = useNavigate();
     
     const colorStyle = (element: string) => {

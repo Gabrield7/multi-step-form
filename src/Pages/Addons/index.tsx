@@ -1,14 +1,13 @@
 import { BodyPage } from '@components/BodyPage';
 import { AddonButton } from './AddonButton';
 import { useForm } from 'react-hook-form';
-import { PageValidationContext } from '@contexts/PageValidationContext';
-import { useContext } from 'react';
 import { useNavigate } from 'react-router';
+import { usePageValidationStore } from '@stores/PageStatusStore';
 import './Addons.scss';
 
 export const Addons = () => {
-    const { validatePage } = useContext(PageValidationContext);
     const navigate = useNavigate();
+    const { validatePage } = usePageValidationStore();
 
     const { register, handleSubmit } = useForm();
 

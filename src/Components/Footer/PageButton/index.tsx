@@ -1,8 +1,5 @@
 import { useLocation, useNavigate } from 'react-router';
-import { PageValidationContext } from '@contexts/PageValidationContext';
-import { UserContext } from '@contexts/UserContext';
-import { PlanContext } from '@contexts/PlanContext';
-import { useContext } from 'react';
+import { usePageValidationStore } from '@stores/PageStatusStore';
 import './PageButton.scss';
 
 interface IPageButtonProps{
@@ -10,9 +7,7 @@ interface IPageButtonProps{
 };
 
 export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {   
-    const { user } = useContext(UserContext);
-    const { plan } = useContext(PlanContext);
-    const { pageStatus, validatePage } = useContext(PageValidationContext);
+    const { validatePage } = usePageValidationStore();
     
     const location = useLocation();
     const navigate = useNavigate();
@@ -20,14 +15,8 @@ export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {
     type PagePaths = '/info' | '/plan' | '/addons' | '/summary' | '/confirmation';
     const pathName = location.pathname as PagePaths
 
-    const sendSubscription = async (): Promise<void> => {
-        localStorage.setItem('signature', JSON.stringify({user, plan, pageStatus}));
-    }
-
-    const handleClick = async (): Promise<void> => {
+    const handleClick = (): void => {
         if(location.pathname !== '/summary') return
-
-        await sendSubscription();
 
         validatePage('/confirmation', true);
         navigate('/confirmation');
@@ -63,5 +52,4 @@ export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {
     if(!buttonProps) return null;
 
     return <button {...buttonProps}> {buttonProps?.text} </button>
-
 };

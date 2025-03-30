@@ -1,15 +1,13 @@
 import { BodyPage } from '@components/BodyPage';
 import { PlanButton } from './PlanButton';
 import { Switch } from './Switch';
-import { useContext } from 'react';
-import { PageValidationContext } from '@contexts/PageValidationContext';
 import { useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import './Plan.scss';
-import { PlanContext } from '@contexts/PlanContext';
-//import { useBlockedNavigation } from '@contexts/PageValidationContext/redirect';
+import { usePlanStore } from '@stores/PlanStore';
+import { usePageValidationStore } from '@stores/PageStatusStore';
 
 const planSchema = z.object({
     plan: z.enum(['Arcade', 'Advanced', 'Pro']).nullable().refine(
@@ -21,11 +19,10 @@ const planSchema = z.object({
 type PlanSchema = z.infer<typeof planSchema>
 
 export const Plan = () => {
-    //useBlockedNavigation()
-    
-    const { setPlan } = useContext(PlanContext);
-    const { validatePage } = useContext(PageValidationContext);
     const navigate = useNavigate();
+
+    const { setPlan } = usePlanStore();
+    const { validatePage } = usePageValidationStore()
     
     const { register, handleSubmit, formState: { errors } } = useForm({ //, 
         resolver: zodResolver(planSchema),

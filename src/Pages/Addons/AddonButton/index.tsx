@@ -1,9 +1,9 @@
-import { useState, useContext } from 'react';
-import { availableAddons } from '@contexts/PlanContext/Models';
-import { PlanContext } from '@contexts/PlanContext';
+import { useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import clsx from 'clsx';
 import './AddonButton.scss';
+import { usePlanStore } from '@stores/PlanStore';
+import { availableAddons } from '@stores/PlanStore/availableServices';
 
 interface IAddonProps {
     addonName: 'Online service' | 'Larger storage' | 'Customizable profile'
@@ -12,8 +12,8 @@ interface IAddonProps {
 
 export const AddonButton: React.FC<IAddonProps> = ({ addonName, register }) => {
     const [hover, setHover] = useState(false);
-    const { plan, setAddons } = useContext(PlanContext);
     
+    const { plan, setAddons } = usePlanStore();
     const selectedAddon = availableAddons[addonName];
 
     return (

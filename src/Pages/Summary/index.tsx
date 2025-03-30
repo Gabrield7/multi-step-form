@@ -1,14 +1,12 @@
 import { BodyPage } from '@components/BodyPage';
 import { SubscriptionList } from './SubscriptionList';
-import { PlanContext } from '@contexts/PlanContext';
 import { Service } from './Service';
-import { useContext } from 'react';
+import { usePlanStore } from '@stores/PlanStore';
 import './Summary.scss'
 
 export const Summary = () => {
-    const { plan } = useContext(PlanContext);
+    const { plan } = usePlanStore();
 
-    
     return(
         <BodyPage
             title={'Finishing up'}

@@ -1,6 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
+//import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { PageValidationContext } from '@contexts/PageValidationContext';
+//import { PageValidationContext } from '@contexts/PageValidationContext';
+import { usePageValidationStore } from '@stores/PageStatusStore';
 
 interface ValidateRouteProps{
     path: '/info' | '/plan' | '/addons' | '/summary' | '/confirmation';
@@ -8,7 +10,8 @@ interface ValidateRouteProps{
 }
 
 export const ValidateRoute: React.FC<ValidateRouteProps> = ({ path, children }) => {
-    const { pageStatus } = useContext(PageValidationContext);
+    //const { pageStatus } = useContext(PageValidationContext);
+    const { pageStatus } = usePageValidationStore()
     const navigate = useNavigate();
 
     useEffect(() => {    

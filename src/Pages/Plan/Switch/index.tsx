@@ -1,11 +1,10 @@
 import { ToggleButton } from './ToggleButton'
-import { PlanContext } from '@contexts/PlanContext';
-import { useContext } from 'react';
+import { usePlanStore } from '@stores/PlanStore';
 import clsx from 'clsx';
 import './Switch.scss'
 
 export const Switch = () => {
-    const { plan } = useContext(PlanContext);
+    const { plan } = usePlanStore();
     
     return (
         <div className='switch__container'>

@@ -1,9 +1,8 @@
-import { useContext } from 'react';
-import { PlanContext } from '@contexts/PlanContext';
 import './ToggleButton.scss';
+import { usePlanStore } from '@stores/PlanStore';
   
 export const ToggleButton = () => {   
-    const { plan, setPlan } = useContext(PlanContext);
+    const { plan, setPlan } = usePlanStore();
 
     return(
         <label className='toggle'>

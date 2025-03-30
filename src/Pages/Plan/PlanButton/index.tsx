@@ -1,7 +1,6 @@
-import { useContext } from 'react';
-import { PlanContext } from '@contexts/PlanContext';
-import { availablePlans } from '@contexts/PlanContext/Models';
 import { UseFormRegisterReturn } from 'react-hook-form';
+import { usePlanStore } from '@stores/PlanStore';
+import { availablePlans } from '@stores/PlanStore/availableServices';
 import './PlanButton.scss';
 
 interface IPlanButtonProps {
@@ -10,7 +9,7 @@ interface IPlanButtonProps {
 };
 
 export const PlanButton: React.FC<IPlanButtonProps> = ({ planName, register }) => {
-    const { plan } = useContext(PlanContext);
+    const { plan } = usePlanStore();
     const selectedPlan = availablePlans[planName];
 
     return (

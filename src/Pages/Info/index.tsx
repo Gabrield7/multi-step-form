@@ -1,14 +1,12 @@
 import { BodyPage } from '@components/BodyPage';
 import { FormField } from './FormField';
-import { useContext } from 'react';
-import { UserContext } from '@contexts/UserContext';
-import { PageValidationContext } from '@contexts/PageValidationContext';
 import { useNavigate } from 'react-router';
+import { useUserStore } from '@stores/UserStore';
+import { usePageValidationStore } from '@stores/PageStatusStore';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import './Info.scss';
-//import { useBlockedNavigation } from '@contexts/PageValidationContext/redirect';
 
 const userSchema = z.object({
     name: z.string()
@@ -24,12 +22,11 @@ const userSchema = z.object({
 
 type UserSchema = z.infer<typeof userSchema>
 
-export const Info = () => {
-    //useBlockedNavigation()
-    
-    const { user, setUser } = useContext(UserContext);
-    const { validatePage } = useContext(PageValidationContext);
+export const Info = () => {    
     const navigate = useNavigate();
+
+    const { user, setUser } = useUserStore();
+    const { validatePage } = usePageValidationStore();
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(userSchema),
