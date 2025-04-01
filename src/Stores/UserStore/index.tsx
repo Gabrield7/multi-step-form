@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface IUser {
+export interface IUser {
     name: string;
     email: string;
     phone: string;
@@ -25,10 +25,17 @@ const useUserStore = create<UserStore>()(
             }
         }),
         {
-            name: 'signature-storage',
-            partialize: (state) => ({
-                user: state.user
-            })
+            name: 'signature-storage-user',
+            storage: {
+                getItem: (name) => {
+                    const storedValue = localStorage.getItem(name);
+                    return storedValue ? JSON.parse(storedValue) : {};
+                },
+                setItem: (name, value) => {
+                    localStorage.setItem(name, JSON.stringify(value))
+                },
+                removeItem: (name) => localStorage.removeItem(name),
+            }
         }
     )
 )

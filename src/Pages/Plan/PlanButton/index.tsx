@@ -9,7 +9,7 @@ interface IPlanButtonProps {
 };
 
 export const PlanButton: React.FC<IPlanButtonProps> = ({ planName, register }) => {
-    const { plan } = usePlanStore();
+    const { plan, setPlan } = usePlanStore();
     const selectedPlan = availablePlans[planName];
 
     return (
@@ -19,6 +19,8 @@ export const PlanButton: React.FC<IPlanButtonProps> = ({ planName, register }) =
                 id={planName}
                 value={planName}
                 {...register}
+                checked={plan.name === planName}
+                onChange={() => setPlan('name', planName)}
                 hidden
             />
             <div className='button__container'>

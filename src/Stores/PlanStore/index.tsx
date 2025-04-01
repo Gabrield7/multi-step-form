@@ -6,7 +6,7 @@ type PlanName = 'Arcade' | 'Advanced' | 'Pro' | undefined;
 type AddonType = 'Online service' | 'Larger storage' | 'Customizable profile';
 type BillingCycle = 'monthly' | 'yearly';
 
-interface IPlan {
+export interface IPlan {
     name: PlanName
     cycle: BillingCycle
     addons: AddonType[]
@@ -61,10 +61,17 @@ const usePlanStore = create<PlanStore>()(
             })
         }),
         {
-            name: 'signature-storage',
-            partialize: (state) => ({
-                plan: state.plan
-            })
+            name: 'signature-storage-plan',
+            storage: {
+                getItem: (name) => {
+                    const storedValue = localStorage.getItem(name);
+                    return storedValue ? JSON.parse(storedValue) : {};
+                },
+                setItem: (name, value) => {
+                    localStorage.setItem(name, JSON.stringify(value))
+                },
+                removeItem: (name) => localStorage.removeItem(name),
+            }
         }
     )
 )

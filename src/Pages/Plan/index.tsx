@@ -2,12 +2,11 @@ import { BodyPage } from '@components/BodyPage';
 import { PlanButton } from './PlanButton';
 import { Switch } from './Switch';
 import { useNavigate } from 'react-router';
+import { usePageValidationStore } from '@stores/PageStatusStore';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import './Plan.scss';
-import { usePlanStore } from '@stores/PlanStore';
-import { usePageValidationStore } from '@stores/PageStatusStore';
 
 const planSchema = z.object({
     plan: z.enum(['Arcade', 'Advanced', 'Pro']).nullable().refine(
@@ -16,20 +15,16 @@ const planSchema = z.object({
     )
 });
 
-type PlanSchema = z.infer<typeof planSchema>
-
 export const Plan = () => {
     const navigate = useNavigate();
 
-    const { setPlan } = usePlanStore();
     const { validatePage } = usePageValidationStore()
     
-    const { register, handleSubmit, formState: { errors } } = useForm({ //, 
+    const { register, handleSubmit, formState: { errors } } = useForm({ 
         resolver: zodResolver(planSchema),
     });
 
-    const onValid = (data: PlanSchema) => {
-        setPlan('name', data.plan);
+    const onValid = () => {
         validatePage('/addons', true);
         navigate('/addons');
     };

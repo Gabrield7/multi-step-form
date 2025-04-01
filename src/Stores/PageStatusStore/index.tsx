@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 
 type PagePath = '/info' | '/plan' | '/addons' | '/summary' | '/confirmation';
 
-type PageStatus = {
+export type PageStatus = {
     [key in PagePath]: boolean;
 };
 
@@ -32,10 +32,17 @@ const usePageValidationStore = create<PageValidationStore>()(
             },
         }),
         {
-            name: 'signature-storage',
-            partialize: (state) => ({
-                pageValidation: state.pageStatus
-            })
+            name: 'signature-storage-status',
+            storage: {
+                getItem: (name) => {
+                    const storedValue = localStorage.getItem(name);
+                    return storedValue ? JSON.parse(storedValue) : {};
+                },
+                setItem: (name, value) => {
+                    localStorage.setItem(name, JSON.stringify(value))
+                },
+                removeItem: (name) => localStorage.removeItem(name),
+            }
         }
     )
 );

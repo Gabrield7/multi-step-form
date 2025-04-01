@@ -24,6 +24,4 @@ dist-ssr
 *.sln
 *.sw?
 
-validation.ts
 style-guide.md
-Contexts
