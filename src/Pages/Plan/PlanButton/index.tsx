@@ -18,9 +18,9 @@ export const PlanButton: React.FC<IPlanButtonProps> = ({ planName, register }) =
                 type='radio'
                 id={planName}
                 value={planName}
-                {...register}
                 checked={plan.name === planName}
                 onChange={() => setPlan('name', planName)}
+                {...register}
                 hidden
             />
             <div className='button__container'>

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+//import { persist } from 'zustand/middleware';
 
 type PagePath = '/info' | '/plan' | '/addons' | '/summary' | '/confirmation';
 
@@ -13,7 +13,7 @@ interface PageValidationStore {
 }
 
 const usePageValidationStore = create<PageValidationStore>()(
-    persist(
+    //persist(
         (set) => ({
             pageStatus: {
                 '/info': true,
@@ -30,21 +30,22 @@ const usePageValidationStore = create<PageValidationStore>()(
                     },
                 }));
             },
-        }),
-        {
-            name: 'signature-storage-status',
-            storage: {
-                getItem: (name) => {
-                    const storedValue = localStorage.getItem(name);
-                    return storedValue ? JSON.parse(storedValue) : {};
-                },
-                setItem: (name, value) => {
-                    localStorage.setItem(name, JSON.stringify(value))
-                },
-                removeItem: (name) => localStorage.removeItem(name),
-            }
-        }
-    )
+        })
+        // }),
+        // {
+        //     name: 'signature-storage-status',
+        //     storage: {
+        //         getItem: (name) => {
+        //             const storedValue = localStorage.getItem(name);
+        //             return storedValue ? JSON.parse(storedValue) : {};
+        //         },
+        //         setItem: (name, value) => {
+        //             localStorage.setItem(name, JSON.stringify(value))
+        //         },
+        //         removeItem: (name) => localStorage.removeItem(name),
+        //     }
+        // }
+    // )
 );
 
 export { usePageValidationStore };

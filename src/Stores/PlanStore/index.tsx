@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+//import { persist } from 'zustand/middleware';
 import { availableAddons, availablePlans } from './availableServices.ts';
 
 type PlanName = 'Arcade' | 'Advanced' | 'Pro' | undefined;
@@ -37,7 +37,7 @@ const calculateTotalPrice = (plan: IPlan): number => {
 };
 
 const usePlanStore = create<PlanStore>()(
-    persist(
+    //persist(
         (set) => ({
             plan: {
                 name: undefined,
@@ -60,20 +60,20 @@ const usePlanStore = create<PlanStore>()(
                 return { plan: { ...updatedPlan, price: calculateTotalPrice(updatedPlan) } };
             })
         }),
-        {
-            name: 'signature-storage-plan',
-            storage: {
-                getItem: (name) => {
-                    const storedValue = localStorage.getItem(name);
-                    return storedValue ? JSON.parse(storedValue) : {};
-                },
-                setItem: (name, value) => {
-                    localStorage.setItem(name, JSON.stringify(value))
-                },
-                removeItem: (name) => localStorage.removeItem(name),
-            }
-        }
-    )
+        // {
+        //     name: 'signature-storage-plan',
+        //     storage: {
+        //         getItem: (name) => {
+        //             const storedValue = localStorage.getItem(name);
+        //             return storedValue ? JSON.parse(storedValue) : {};
+        //         },
+        //         setItem: (name, value) => {
+        //             localStorage.setItem(name, JSON.stringify(value))
+        //         },
+        //         removeItem: (name) => localStorage.removeItem(name),
+        //     }
+        // }
+    //)
 )
 
 export { usePlanStore }
