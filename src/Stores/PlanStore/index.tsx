@@ -2,7 +2,7 @@ import { create } from 'zustand';
 //import { persist } from 'zustand/middleware';
 import { availableAddons, availablePlans } from './availableServices.ts';
 
-type PlanName = 'Arcade' | 'Advanced' | 'Pro' | undefined;
+type PlanName = 'Arcade' | 'Advanced' | 'Pro';
 type AddonType = 'Online service' | 'Larger storage' | 'Customizable profile';
 type BillingCycle = 'monthly' | 'yearly';
 
@@ -37,43 +37,28 @@ const calculateTotalPrice = (plan: IPlan): number => {
 };
 
 const usePlanStore = create<PlanStore>()(
-    //persist(
-        (set) => ({
-            plan: {
-                name: undefined,
-                cycle: 'monthly',
-                addons: [],
-                price: 0
-            },
-            // Update the plan props
-            setPlan: (property, value) => set((state) => {
-                const updatedPlan = { ...state.plan, [property]: value };
-                return { plan: { ...updatedPlan, price: calculateTotalPrice(updatedPlan) } };
-            }),
-            // Add or remove addons
-            setAddons: (addonName) => set((state) => {
-                const updatedAddons = state.plan.addons.includes(addonName)
-                    ? state.plan.addons.filter((addon) => addon !== addonName)
-                    : [...state.plan.addons, addonName];
-        
-                const updatedPlan = { ...state.plan, addons: updatedAddons };
-                return { plan: { ...updatedPlan, price: calculateTotalPrice(updatedPlan) } };
-            })
+    (set) => ({
+        plan: {
+            name: 'Arcade',
+            cycle: 'monthly',
+            addons: [],
+            price: 0
+        },
+        // Update the plan props
+        setPlan: (property, value) => set((state) => {
+            const updatedPlan = { ...state.plan, [property]: value };
+            return { plan: { ...updatedPlan, price: calculateTotalPrice(updatedPlan) } };
         }),
-        // {
-        //     name: 'signature-storage-plan',
-        //     storage: {
-        //         getItem: (name) => {
-        //             const storedValue = localStorage.getItem(name);
-        //             return storedValue ? JSON.parse(storedValue) : {};
-        //         },
-        //         setItem: (name, value) => {
-        //             localStorage.setItem(name, JSON.stringify(value))
-        //         },
-        //         removeItem: (name) => localStorage.removeItem(name),
-        //     }
-        // }
-    //)
+        // Add or remove addons
+        setAddons: (addonName) => set((state) => {
+            const updatedAddons = state.plan.addons.includes(addonName)
+                ? state.plan.addons.filter((addon) => addon !== addonName)
+                : [...state.plan.addons, addonName];
+    
+            const updatedPlan = { ...state.plan, addons: updatedAddons };
+            return { plan: { ...updatedPlan, price: calculateTotalPrice(updatedPlan) } };
+        })
+    }),
 )
 
 export { usePlanStore }

@@ -1,7 +1,7 @@
 import { Service } from '../Service';
 import { availableAddons, availablePlans } from '@contexts/PlanContext/Models';
-import './SubscriptionList.scss';
 import { usePlanStore } from '@stores/PlanStore';
+import './SubscriptionList.scss';
 
 export const SubscriptionList = () => {
     const { plan } = usePlanStore();
@@ -17,7 +17,14 @@ export const SubscriptionList = () => {
             <span></span>
             {addons.map(addonName => {
                 const selectedAddon = availableAddons[addonName]
-                return <Service type='addon' name={addonName} price={selectedAddon.price[cycle]}/>
+                return (
+                    <Service 
+                        type='addon' 
+                        key={addonName}
+                        name={addonName} 
+                        price={selectedAddon.price[cycle]}
+                    />
+                )
             })}
         </div>
     )

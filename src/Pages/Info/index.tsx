@@ -6,6 +6,7 @@ import { usePageValidationStore } from '@stores/PageStatusStore';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useEffect } from 'react';
 import './Info.scss';
 
 const userSchema = z.object({
@@ -28,19 +29,24 @@ export const Info = () => {
     const { user, setUser } = useUserStore();
     const { validatePage } = usePageValidationStore();
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({
         resolver: zodResolver(userSchema),
         mode: 'onChange',
-        defaultValues: {
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-        }
+        defaultValues: user
     });
 
+    useEffect(() => reset(user), [user, reset]); //reset the default values when the page reloads
+
+    const handleBlur = () => setUser(watch()); //validate when the field loses focus
+
     const onValid = (data: UserSchema) => {
-        setUser(data);
-        validatePage('/plan', true);
+        const formChanged = JSON.stringify(data) !== JSON.stringify(user);
+        
+        if(formChanged){
+            setUser(data);
+            validatePage('/plan', true);
+        }
+
         navigate('/plan');
     };
     
@@ -57,19 +63,19 @@ export const Info = () => {
                 <FormField 
                     label='Name' 
                     placeholder='e.g. Stephen King' 
-                    register={register('name')}
+                    register={{ ...register('name', { onBlur: handleBlur }) }} 
                     error={errors.name}
                 />
                 <FormField 
                     label='Email address' 
                     placeholder='e.g. stephenking@lorem.com' 
-                    register={register('email')}
+                    register={{ ...register('email', { onBlur: handleBlur }) }} 
                     error={errors.email}
                 />
                 <FormField 
                     label='Phone Number' 
                     placeholder='e.g. +1 234 567 890' 
-                    register={register('phone')}
+                    register={{ ...register('phone', { onBlur: handleBlur }) }} 
                     error={errors.phone}
                 />
             </form>

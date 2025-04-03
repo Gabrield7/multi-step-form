@@ -1,14 +1,12 @@
-import { UseFormRegisterReturn } from 'react-hook-form';
 import { usePlanStore } from '@stores/PlanStore';
 import { availablePlans } from '@stores/PlanStore/availableServices';
 import './PlanButton.scss';
 
 interface IPlanButtonProps {
     planName: 'Arcade' | 'Advanced' | 'Pro';
-    register?: UseFormRegisterReturn
 };
 
-export const PlanButton: React.FC<IPlanButtonProps> = ({ planName, register }) => {
+export const PlanButton: React.FC<IPlanButtonProps> = ({ planName }) => {
     const { plan, setPlan } = usePlanStore();
     const selectedPlan = availablePlans[planName];
 
@@ -20,7 +18,6 @@ export const PlanButton: React.FC<IPlanButtonProps> = ({ planName, register }) =
                 value={planName}
                 checked={plan.name === planName}
                 onChange={() => setPlan('name', planName)}
-                {...register}
                 hidden
             />
             <div className='button__container'>

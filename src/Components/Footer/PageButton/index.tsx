@@ -16,10 +16,8 @@ export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {
     const pathName = location.pathname as PagePaths
 
     const handleClick = (): void => {
-        if(location.pathname !== '/summary') return
-
         validatePage('/confirmation', true);
-        navigate('/confirmation');
+        navigate('/confirmation');        
     }
 
     interface ButtonConfig {

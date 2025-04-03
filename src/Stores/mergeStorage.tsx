@@ -20,17 +20,27 @@ const useGlobalStore = create<GlobalStore>()(
             plan: usePlanStore.getState().plan,
 
             syncStores: () => {
-                set({
+                const updatedState = {
                     pageStatus: usePageValidationStore.getState().pageStatus,
                     user: useUserStore.getState().user,
                     plan: usePlanStore.getState().plan,
-                });
+                };
+
+                set(updatedState);
+                localStorage.setItem('signature-storage-global', JSON.stringify(updatedState));
             },
 
             initializeStores: () => {
                 const storedData = localStorage.getItem('signature-storage-global');
                 if (storedData) {
                     const parsedData = JSON.parse(storedData);
+
+                    set({
+                        pageStatus: parsedData.pageStatus,
+                        user: parsedData.user,
+                        plan: parsedData.plan,
+                    });
+
                     usePageValidationStore.setState({ pageStatus: parsedData.pageStatus });
                     useUserStore.setState({ user: parsedData.user });
                     usePlanStore.setState({ plan: parsedData.plan });
