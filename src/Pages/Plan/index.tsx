@@ -9,12 +9,12 @@ import './Plan.scss';
 export const Plan = () => {
     const navigate = useNavigate();
 
-    const { validatePage } = usePageValidationStore();
+    const { pageStatus, validatePage } = usePageValidationStore();
     
     const { handleSubmit } = useForm();
 
     const onValid = () => {
-        validatePage('/addons', true);
+        if(!pageStatus['/addons']) validatePage('/addons', true);
         navigate('/addons');
     };
     

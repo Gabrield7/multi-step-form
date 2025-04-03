@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-//import { persist } from 'zustand/middleware';
 import { availableAddons, availablePlans } from './availableServices.ts';
 
 type PlanName = 'Arcade' | 'Advanced' | 'Pro';

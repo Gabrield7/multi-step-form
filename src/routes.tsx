@@ -5,11 +5,8 @@ import { Addons } from './Pages/Addons';
 import { Summary } from './Pages/Summary';
 import { Confirmation } from './Pages/Confirmation';
 import { ValidateRoute } from './Components/ValidateRoute';
-//import { usePageValidationStore } from '@stores/PageStatusStore';
 
-export const AppRoutes = () => {
-    //const { pageStatus } = usePageValidationStore();
-    
+export const AppRoutes = () => {    
     return (
         <Routes>
             <Route path='*' element={<Navigate to='/info'/>} />

@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-//import { persist } from 'zustand/middleware';
 
 type PagePath = '/info' | '/plan' | '/addons' | '/summary' | '/confirmation';
 

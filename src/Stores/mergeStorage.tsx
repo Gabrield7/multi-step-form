@@ -10,6 +10,7 @@ interface GlobalStore {
     plan: ReturnType<typeof usePlanStore>;
     syncStores: () => void;
     initializeStores: () => void;
+    isInitialized: boolean
 }
 
 const useGlobalStore = create<GlobalStore>()(
@@ -18,12 +19,14 @@ const useGlobalStore = create<GlobalStore>()(
             pageStatus: usePageValidationStore.getState().pageStatus,
             user: useUserStore.getState().user,
             plan: usePlanStore.getState().plan,
+            isInitialized: false,
 
             syncStores: () => {
                 const updatedState = {
                     pageStatus: usePageValidationStore.getState().pageStatus,
                     user: useUserStore.getState().user,
                     plan: usePlanStore.getState().plan,
+                    isInitialized: true
                 };
 
                 set(updatedState);
@@ -39,6 +42,7 @@ const useGlobalStore = create<GlobalStore>()(
                         pageStatus: parsedData.pageStatus,
                         user: parsedData.user,
                         plan: parsedData.plan,
+                        isInitialized: true
                     });
 
                     usePageValidationStore.setState({ pageStatus: parsedData.pageStatus });

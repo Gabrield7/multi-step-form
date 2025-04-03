@@ -7,12 +7,12 @@ import './Addons.scss';
 
 export const Addons = () => {
     const navigate = useNavigate();
-    const { validatePage } = usePageValidationStore();
+    const { pageStatus, validatePage } = usePageValidationStore();
 
     const { register, handleSubmit } = useForm();
 
     const onValid = () => {
-        validatePage('/summary', true);
+        if(!pageStatus['/summary']) validatePage('/summary', true);
         navigate('/summary');
     };
     

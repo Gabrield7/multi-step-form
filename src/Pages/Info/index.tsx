@@ -27,7 +27,7 @@ export const Info = () => {
     const navigate = useNavigate();
 
     const { user, setUser } = useUserStore();
-    const { validatePage } = usePageValidationStore();
+    const { pageStatus, validatePage } = usePageValidationStore();
 
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({
         resolver: zodResolver(userSchema),
@@ -41,11 +41,9 @@ export const Info = () => {
 
     const onValid = (data: UserSchema) => {
         const formChanged = JSON.stringify(data) !== JSON.stringify(user);
-        
-        if(formChanged){
-            setUser(data);
-            validatePage('/plan', true);
-        }
+
+        if(formChanged) setUser(data);
+        if(!pageStatus['/plan']) validatePage('/plan', true);
 
         navigate('/plan');
     };

@@ -7,7 +7,7 @@ interface IPageButtonProps{
 };
 
 export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {   
-    const { validatePage } = usePageValidationStore();
+    const { pageStatus, validatePage } = usePageValidationStore();
     
     const location = useLocation();
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {
     const pathName = location.pathname as PagePaths
 
     const handleClick = (): void => {
-        validatePage('/confirmation', true);
+        if(!pageStatus['/confirmation']) validatePage('/confirmation', true);
         navigate('/confirmation');        
     }
 
