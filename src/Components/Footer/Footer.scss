@@ -9,3 +9,9 @@
     margin-top: auto;
     z-index: 1;
 }
+
+@media (min-width: 808px) {
+    .footer{
+        padding: 2rem 4rem;
+    }
+}

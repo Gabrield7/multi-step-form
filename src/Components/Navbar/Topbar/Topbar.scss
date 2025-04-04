@@ -17,30 +17,27 @@
         background-repeat: no-repeat;
         z-index: 0;
     }
-
-    // button{
-    //     all: unset;
-    //     display: flex;
-    //     width: 2rem;
-    //     height: 2rem;
-    //     align-items: center;
-    //     justify-content: center;
-    //     border: 1px solid $alabaster;
-    //     border-radius: 20px;
-    //     margin: 2rem 0;
-    //     z-index: 1;
-    //     font-family: $main-font;
-    //     font-weight: 500;
-    //     font-size: 16px;
-    //     color: $magnolia;
-    //     transition: 250ms;
-
-    //     &:hover, &:focus{
-    //         background-color: $light-blue;
-    //         border-color: $light-blue;
-    //         color: $marine-blue;
-    //         cursor: pointer;
-    //     }
-    // }
 }
 
+@media (min-width: 480px) {
+    .topbar__container{
+        justify-content: flex-start;
+        flex-direction: column;
+        background-image: url('/assets/images/bg-sidebar-desktop.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: .5rem;
+        aspect-ratio: 568 / 274;
+        margin: 1rem;
+        flex-grow: 1;
+        min-width: 50px;
+        max-width: 210px;
+        padding: 3rem 1rem;
+        gap: 1rem;
+
+        &::before{
+            display: none;
+        }
+    }
+}

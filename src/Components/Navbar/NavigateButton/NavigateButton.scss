@@ -6,39 +6,95 @@
     color: $color;
 }
 
-.navigate-button{
+.navigate-button__container{
     all: unset;
     display: flex;
-    width: 2rem;
-    height: 2rem;
     align-items: center;
-    justify-content: center;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 20px;
-    margin: 2rem 0;
-    z-index: 1;
-    font-family: $main-font;
-    font-weight: 500;
-    font-size: 16px;
-    transition: 250ms;
-}
+    padding: 1rem .5rem;
+    border-radius: .5rem;
+    gap: 1rem;
 
-.normal{
-    cursor: pointer;
-    @include buttonState(transparent, $magnolia, $magnolia);
+    .navigate-button{
+        display: flex;
+        width: 2rem;
+        height: 2rem;
+        align-items: center;
+        justify-content: center;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 20px;
+        margin: 2rem 0;
+        z-index: 1;
+        color: $magnolia;
+        font-family: $main-font;
+        font-weight: 500;
+        font-size: 16px;
+        transition: 250ms;
+    }
 
-    &:hover{
-        @include buttonState($light-blue, $light-blue, $marine-blue)
+    .button-description{
+        display: none;
+        font-family: $main-font;
+        letter-spacing: 1px;
+
+        h4{
+            color: $light-gray;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        p{
+            color: $magnolia;
+            font-size: 18px;
+            font-weight: 700;
+        }
+    }
+    
+    &.normal, &.active{
+        transition: 250ms;
+        cursor: pointer;
+        
+        &:hover {
+            background-color: hsl(213, 96%, 18%, 0.2);
+        }
+    }
+
+    &.normal .navigate-button {
+        @include buttonState(transparent, $light-gray, $magnolia);
+    
+        &:hover {
+            @include buttonState($light-blue, $light-blue, $marine-blue);
+        }
+    }
+    
+    &.active .navigate-button {
+        @include buttonState($light-blue, $light-blue, $marine-blue);
+    }
+    
+    &.disabled .navigate-button {
+        cursor: auto;
+        @include buttonState(transparent, $light-gray, $magnolia);
     }
 }
 
-.active{
-    cursor: pointer;
-    @include buttonState($light-blue, $light-blue, $marine-blue)
+@media (min-width: 480px){
+    .navigate-button__container{
+        justify-content: center;
+
+        .navigate-button{
+            margin: 0;
+        }
+    }
 }
 
-.disabled{
-    cursor: auto;
-    @include buttonState(transparent, $magnolia, $magnolia)
+@media (min-width: 755px){
+    .navigate-button__container{
+        justify-content: flex-start;
+
+        .button-description{
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+        }
+    }
 }

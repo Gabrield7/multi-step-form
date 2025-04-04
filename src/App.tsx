@@ -17,8 +17,10 @@ export function App() {
     return (
         <BrowserRouter>
             <Navbar />
-            <AppRoutes />
-            <Footer />
+            <section className='body__container'>
+                <AppRoutes />
+                <Footer />
+            </section>
         </BrowserRouter>
     )
 }

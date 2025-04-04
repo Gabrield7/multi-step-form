@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import './NavigateButton.scss';
 import { usePageValidationStore } from '@stores/PageStatusStore';
+import './NavigateButton.scss';
 
-interface INavigateButtonProps{
-    label: number,
+interface INavigateButton{
+    label: number
+    name: string
     path: '/info' | '/plan' | '/addons' | '/summary' | '/confirmation'
 };
 
-export const NavigateButton: React.FC<INavigateButtonProps> = (props) => {
+export const NavigateButton: React.FC<INavigateButton> = ({ label, name, path }) => {
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -17,30 +18,36 @@ export const NavigateButton: React.FC<INavigateButtonProps> = (props) => {
     const { pageStatus } = usePageValidationStore();
     
     const navigateToPage = () => {
-        const isPageEnabled = pageStatus[props.path] ?? false;
+        const isPageEnabled = pageStatus[path] ?? false;
         
-        if(isPageEnabled) navigate(props.path)
+        if(isPageEnabled) navigate(path)
     }
 
     useEffect(() => {
-        const isFinalPage = location.pathname === '/confirmation' && props.path === '/summary';
-        const isCurrentPath = props.path === location.pathname;
+        const isFinalPage = location.pathname === '/confirmation' && path === '/summary';
+        const isCurrentPath = path === location.pathname;
 
         if (isFinalPage) {
             setButtonClass('active');
-        } else if (pageStatus[props.path]) {
+        } else if (pageStatus[path]) {
             setButtonClass(isCurrentPath ? 'active' : 'normal');
         } else {
             setButtonClass('disabled');
         }
-    }, [location, props.path, pageStatus]);
+    }, [location, path, pageStatus]);
     
+
     return (
+        //className={'navigate-button__container'}
         <button 
-            className={`navigate-button ${buttonClass}`}
+            className={`navigate-button__container ${buttonClass}`}
             onClick={navigateToPage}
-        > 
-            {props.label} 
+        >
+            <span className={`navigate-button`}>{label}</span>
+            <div className='button-description'>
+                <h4>{`STEP ${label}`}</h4>
+                <p>{name}</p>
+            </div> 
         </button>
     )
 };
