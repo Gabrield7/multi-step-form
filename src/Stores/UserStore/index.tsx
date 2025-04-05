@@ -8,7 +8,7 @@ export interface IUser {
 
 interface UserStore {
     user: IUser;
-    setUser: (user: IUser) => void
+    setUser: (data: Partial<IUser>) => void
 }
 
 const useUserStore = create<UserStore>()(
@@ -18,8 +18,13 @@ const useUserStore = create<UserStore>()(
             email: '',
             phone: ''
         },
-        setUser: (user) => {
-            set({ user })
+        setUser: ( data ) => {
+            set((state) => ({
+                user: {
+                    ...state.user,
+                    ...data
+                }
+            }))
         }
     }),
 )

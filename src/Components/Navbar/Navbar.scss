@@ -1,9 +1,9 @@
 @use '@styles/variables' as *;
 
-.topbar__container{
+.navbar__container{
     display: flex;
     justify-content: center;
-    gap: 1.5rem;
+    gap: .5rem;
     position: relative;
 
     &::before{
@@ -20,7 +20,7 @@
 }
 
 @media (min-width: 480px) {
-    .topbar__container{
+    .navbar__container{
         justify-content: flex-start;
         flex-direction: column;
         background-image: url('/assets/images/bg-sidebar-desktop.svg');
