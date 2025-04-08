@@ -1,5 +1,5 @@
 import { Service } from '../Service';
-import { availableAddons, availablePlans } from '@contexts/PlanContext/Models';
+import { availableAddons, availablePlans } from '@stores/PlanStore/availableServices';
 import { usePlanStore } from '@stores/PlanStore';
 import './SubscriptionList.scss';
 

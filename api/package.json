@@ -2,7 +2,7 @@
   "name": "multi-step-form-api",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.ts",
+  "main": "src/app.ts",
   "scripts": {
     "dev": "tsx watch src/index.ts"
   },

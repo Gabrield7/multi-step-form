@@ -47,10 +47,10 @@ const insertPlan = async (plan: IPlan, userId: number) => {
     );
 }
 
-const deletePlan = async (id: number) => {
-    const db = await openDb();
+// const deletePlan = async (id: number) => {
+//     const db = await openDb();
 
-    await db.run(`DELETE FROM Plan WHERE id = ?`, [id]);
-}
+//     await db.run(`DELETE FROM Plan WHERE id = ?`, [id]);
+// }
 
-export { createPlanTable, getPlans, insertPlan, deletePlan };
+export { createPlanTable, getPlans, insertPlan };

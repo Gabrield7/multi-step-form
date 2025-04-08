@@ -28,13 +28,18 @@ const getUsers = async () => {
 const insertUser = async (user: IUser) => {
     const db = await openDb();
 
-    db.run(`INSERT INTO User (name, email, phone) VALUES (?, ?, ?)`, [user.name, user.email, user.phone])
+    await db.run(
+        `INSERT INTO User (name, email, phone) VALUES (?, ?, ?)`, 
+        [user.name, user.email, user.phone]
+    )
 }
 
-const deleteUser = async (id: number) => {
+const deleteUser = async (id: string) => {
     const db = await openDb();
 
-    await db.run(`DELETE FROM User WHERE id = ?`, [id]);
+    const result = await db.run(`DELETE FROM User WHERE id = ?`, [id]);
+
+    return result.changes; //returns 0 if no user was deleted
 }
 
 export { createUserTable, getUsers, insertUser, deleteUser }
