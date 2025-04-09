@@ -6,6 +6,24 @@ interface IPageButtonProps{
     type: 'back' | 'next'
 };
 
+const confirmRegister = async () => {
+    const storage = localStorage.getItem('signature-storage-global');
+    const data = storage ? JSON.parse(storage) : null;
+
+    const user = data?.user;
+    const plan = data?.plan;
+
+    if (!user || !plan) return;
+
+    await fetch('http://localhost:3000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({user, plan})
+      });
+}
+
 export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {   
     const { pageStatus, validatePage } = usePageValidationStore();
     
@@ -15,7 +33,8 @@ export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {
     type PagePaths = '/info' | '/plan' | '/addons' | '/summary' | '/confirmation';
     const pathName = location.pathname as PagePaths
 
-    const handleClick = (): void => {
+    const handleClick = async (): Promise<void> => {
+        await confirmRegister();
         if(!pageStatus['/confirmation']) validatePage('/confirmation', true);
         navigate('/confirmation');        
     }

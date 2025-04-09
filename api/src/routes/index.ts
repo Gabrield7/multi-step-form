@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import user from './userRoute';
 import plan from './planRoute'
+import register from './registerRoute'
 
 const routes = (app: Application): void => {
     app.route("/").get((req: Request, res: Response) => {
@@ -9,6 +10,7 @@ const routes = (app: Application): void => {
   
     app.use(
         express.json(),
+        register,
         user,
         plan
     );

@@ -3,8 +3,6 @@ import { PlanController } from "../controllers/planController";
 
 const router = Router();
 
-router
-    .get('/plans', PlanController.listPlan)
-    .post('/plans', PlanController.createPlan)
+router.get('/plans', PlanController.listPlan)
 
 export default router

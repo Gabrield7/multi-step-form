@@ -1,5 +1,5 @@
 import { openDb } from "../dbConfig/dbConnect";
-import ShortUniqueId from 'short-uuid';
+import ShortUniqueId from "short-uuid";
 import { insertPlan, IPlan } from "./plan";
 import { insertUser, IUser } from "./user";
 
@@ -43,13 +43,16 @@ const insertRegister = async (
     planData: IPlan
 ) => {
     const db = await openDb();
-    const userID = String(ShortUniqueId.generate());
+    const userID = ShortUniqueId().generate();
 
     try {
         await db.exec("BEGIN TRANSACTION");
 
+        // console.log('User recebido:', typeof userData);
+        // console.log('Plan recebido:', typeof planData);
+        
         await insertUser(userID, userData);
-        await insertPlan(userID, planData)
+        await insertPlan(userID, planData);
 
         await db.exec("COMMIT");
         return { success: true };
@@ -58,27 +61,5 @@ const insertRegister = async (
         throw error;
     }
 };
-
-// const deleteRegister = async (id: string) => {
-//     const db = await openDb();
-
-//     try {
-//         await db.exec("BEGIN TRANSACTION");
-
-//         const userDelete = await deleteUser(id);
-//         const planDelete = await deletePlan(id);
-
-//         if(userDelete === 0 || planDelete === 0){
-//             await db.exec("ROLLBACK");
-//             return { success: false, message: "User and/or plan not found" };
-//         }
-
-//         await db.exec("COMMIT");
-//         return { success: true };
-//     } catch (error) {
-//         await db.exec("ROLLBACK");
-//         throw error;
-//     }
-// }
 
 export { getRegister, insertRegister };
