@@ -4,12 +4,14 @@
   "description": "",
   "main": "src/app.ts",
   "scripts": {
-    "dev": "tsx watch src/index.ts"
+    "dev": "cross-env NODE_ENV=development tsx watch src/index.ts",
+    "start": "cross-env NODE_ENV=production tsx src/index.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "short-uuid": "^5.2.0",
     "sqlite": "^5.1.1",
@@ -19,6 +21,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "@types/node": "^22.14.0",
+    "cross-env": "^7.0.3",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3"
   }

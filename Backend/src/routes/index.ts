@@ -5,7 +5,7 @@ import register from './registerRoute'
 
 const routes = (app: Application): void => {
     app.route("/").get((req: Request, res: Response) => {
-        res.status(200).send('hello world');
+        res.status(200).send('MULTI-STEP-FORM API PLAYING...');
     });
   
     app.use(

@@ -1,15 +1,24 @@
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import routes from './routes';
 import { initDb } from './dbConfig/initDb';
+import { apiKeyAuth } from './middlewares/authAPI';
+
+dotenv.config({
+    path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
+});
 
 const app = express();
 
 app.use(cors());
 
 app.use(express.json());
+app.use(apiKeyAuth);
+
 routes(app);
 
 initDb();
 
-app.listen(3000, () => console.log('api playing'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log('MULTI-STEP-FORM API PLAYING...'));
