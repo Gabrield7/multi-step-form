@@ -1,5 +1,6 @@
 import { Request, Response} from 'express';
 import { getRegister, insertRegister } from '../models/register';
+import { sendError, sendSuccess } from '../utils/responseHelpers';
 
 class RegisterController {
     static createRegister = async (req: Request, res: Response) => {
@@ -7,21 +8,16 @@ class RegisterController {
             const user = req.body.user;
             const plan = req.body.plan;
 
-            // console.log('User recebido:', user);
-            // console.log('Plan recebido:', plan);
-
             if(!user || !plan) {
-                res.status(400).json({ message: 'User or Plan is required' });
+                sendError(res, 400, 'User or Plan is required');
                 return
             };
             
             await insertRegister(user, plan);
 
-            res.status(201).json({ message: 'User and Plan successfully registered' });
+            sendSuccess(res, 201, 'User and Plan successfully registered', []);
         } catch (error) {
-            //console.log(error);
-            console.error('Erro interno:', error instanceof Error ? error.message : error);
-            res.status(500).json({ message: 'Intern error server' });
+            sendError(res, 500, 'An internal server error occurred while trying to register your submission. Please try again later.', error);
         }
     }
     
@@ -30,14 +26,13 @@ class RegisterController {
             const registers = await getRegister();
 
             if (!registers || registers.length === 0) {
-                res.status(200).json({ message: 'No registers found' });
+                sendSuccess(res, 200, 'No registers found.', []);
                 return
             }
 
-            res.status(200).json(registers);
+            sendSuccess(res, 200, 'Registers retrieved successfully.', registers);
         } catch (error) {
-            console.log(error);
-            res.status(500).json({ message: 'Intern error server' });
+            sendError(res, 500, 'An internal server error occurred while retrieving registers. Please try again later.', error);
         }
     }
 }

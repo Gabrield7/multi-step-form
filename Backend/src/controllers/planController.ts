@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { getPlans } from "../models/plan";
+import { sendError, sendSuccess } from '../utils/responseHelpers';
 
 class PlanController {
     static listPlan = async (req: Request, res: Response) => { //available only for dev
@@ -7,31 +8,15 @@ class PlanController {
             const plans = await getPlans();
 
             if (!plans || plans.length === 0) {
-                res.status(200).json({ message: 'No plans found' });
+                sendSuccess(res, 200, 'No plans found.', []);
                 return
             }
 
-            res.status(200).json(plans);
+            sendSuccess(res, 200, 'Plans retrieved successfully.', plans);
         } catch (error) {
-            console.log(error);
-            res.status(500).json({ message: 'Intern error server' });
+            sendError(res, 500, 'An internal server error occurred while retrieving plans. Please try again later.', error);
         }
     }
-    
-    // static createPlan = async (req: Request, res: Response) => {
-    //     try {
-    //         const { userID, ...planData } = req.body;
-
-    //         if(!userID) res.status(400).json({ message: 'User ID for this plan is required' });
-
-    //         await insertPlan(planData, userID);
-            
-    //         res.status(201).json({ message: 'Plan successfully registered' });
-    //     } catch (error) {
-    //         console.log(error);
-    //         res.status(500).json({ message: 'Intern error server' });
-    //     }
-    // }
 }
 
 export { PlanController }
