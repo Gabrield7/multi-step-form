@@ -47,9 +47,6 @@ const insertRegister = async (
 
     try {
         await db.exec("BEGIN TRANSACTION");
-
-        // console.log('User recebido:', typeof userData);
-        // console.log('Plan recebido:', typeof planData);
         
         await insertUser(userID, userData);
         await insertPlan(userID, planData);

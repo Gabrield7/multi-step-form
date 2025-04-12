@@ -8,24 +8,34 @@
     font-weight: 500;
     border-radius: 0.25rem;
     cursor: pointer;
+    transition: 250ms;
 }
 
 .next{
-    display: flex;
     background-color: $marine-blue;
     color: $magnolia;
     margin-left: auto;
+
+    &:hover{
+        background-color: $purplish-blue
+    }
 }
 
 .back{
-    display: flex;
     color: $cool-gray;
     margin-right: auto;
+
+    &:hover{
+        color: $marine-blue
+    }
 }
 
 .confirm{
-    display: flex;
     background-color: $purplish-blue;
     color: $magnolia;
     margin-left: auto;
+
+    &:hover{
+        opacity: .8;
+    }
 }

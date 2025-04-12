@@ -21,4 +21,4 @@ routes(app);
 initDb();
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log('MULTI-STEP-FORM API PLAYING...'));
+app.listen(PORT);

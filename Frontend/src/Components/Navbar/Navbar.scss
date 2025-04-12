@@ -41,3 +41,9 @@
         }
     }
 }
+
+@media (min-width: 750px){
+    .navbar__container{
+        min-width: 210px;
+    }
+}

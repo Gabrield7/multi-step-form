@@ -15,13 +15,32 @@ const confirmRegister = async () => {
 
     if (!user || !plan) return;
 
-    await fetch('api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({user, plan})
-      });
+    try {
+        const response = await fetch('api/register', {
+        //const response = await fetch('http://localhost:3000/register', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({user, plan})
+        });
+        
+        const body = await response.json();
+
+        if (!response.ok) {
+            return {
+                success: false,
+                message: body.message || 'Unnexpected server error',
+                status: body.status || response.status,
+            };
+        }
+
+        return body;
+    } catch (error) {
+        return { 
+            success: false,
+            message: 'Failed to connect to server. Please try again later',
+            error
+        }
+    }
 }
 
 export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {   
@@ -34,9 +53,10 @@ export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {
     const pathName = location.pathname as PagePaths
 
     const handleClick = async (): Promise<void> => {
-        await confirmRegister();
+        const response = await confirmRegister();
+
         if(!pageStatus['/confirmation']) validatePage('/confirmation', true);
-        navigate('/confirmation');        
+        navigate('/confirmation', {state: response});        
     }
 
     interface ButtonConfig {

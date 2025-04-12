@@ -20,6 +20,12 @@
             font-family: $main-font;
             color: $cool-gray;
             text-decoration: underline;
+            cursor: pointer;
+            transition: 250ms;
+
+            &:hover{
+                color: $purplish-blue;
+            }
         }
     }
 
