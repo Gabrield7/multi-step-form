@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router';
 import { usePageValidationStore } from '@stores/PageStatusStore';
 import './PageButton.scss';
+import { useGlobalStore } from '@stores/mergeStorage';
 
 interface IPageButtonProps{
     type: 'back' | 'next'
@@ -16,8 +17,8 @@ const confirmRegister = async () => {
     if (!user || !plan) return;
 
     try {
-        const response = await fetch('api/register', {
         //const response = await fetch('http://localhost:3000/register', {
+        const response = await fetch('api/register', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({user, plan})
@@ -45,6 +46,7 @@ const confirmRegister = async () => {
 
 export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {   
     const { pageStatus, validatePage } = usePageValidationStore();
+    const { setSyncEnabled } = useGlobalStore();
     
     const location = useLocation();
     const navigate = useNavigate();
@@ -54,6 +56,15 @@ export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {
 
     const handleClick = async (): Promise<void> => {
         const response = await confirmRegister();
+        console.log(response.success);
+
+        if(response.success){
+            setSyncEnabled(false); //prevents the store to set the values back to the localStorage
+
+            const storage = localStorage.getItem('signature-storage-global');
+            
+            if(storage) localStorage.removeItem('signature-storage-global');
+        }
 
         if(!pageStatus['/confirmation']) validatePage('/confirmation', true);
         navigate('/confirmation', {state: response});        

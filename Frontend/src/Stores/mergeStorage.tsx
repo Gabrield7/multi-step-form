@@ -11,17 +11,24 @@ interface GlobalStore {
     syncStores: () => void;
     initializeStores: () => void;
     isInitialized: boolean
+    isSyncEnabled: boolean
+    setSyncEnabled: (value: boolean) => void
 }
 
 const useGlobalStore = create<GlobalStore>()(
     persist(
-        (set) => ({
+        (set, get) => ({
             pageStatus: usePageValidationStore.getState().pageStatus,
             user: useUserStore.getState().user,
             plan: usePlanStore.getState().plan,
             isInitialized: false,
+            isSyncEnabled: true,
+            setSyncEnabled: (value: boolean) => {
+                set({ isSyncEnabled: value });
+            },
 
             syncStores: () => {
+                if (!get().isSyncEnabled) return;
                 const updatedState = {
                     pageStatus: usePageValidationStore.getState().pageStatus,
                     user: useUserStore.getState().user,

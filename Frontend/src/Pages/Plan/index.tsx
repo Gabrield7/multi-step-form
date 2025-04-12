@@ -31,9 +31,8 @@ export const Plan = () => {
                 <PlanButton planName="Arcade" />
                 <PlanButton planName="Advanced" />
                 <PlanButton planName="Pro" />
-
-                <Switch />
             </form>
+            <Switch />
         </BodyPage>
     )
 };

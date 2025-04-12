@@ -15,9 +15,9 @@ class RegisterController {
             
             await insertRegister(user, plan);
 
-            sendSuccess(res, 201, 'User and Plan successfully registered', []);
+            sendSuccess(res, 201, 'User and Plan successfully registered');
         } catch (error) {
-            sendError(res, 500, 'An internal server error occurred while trying to register your submission. Please try again later.', error);
+            sendError(res, error, 'An internal server error occurred while trying to register your submission. Please try again later.');
         }
     }
     
@@ -32,7 +32,7 @@ class RegisterController {
 
             sendSuccess(res, 200, 'Registers retrieved successfully.', registers);
         } catch (error) {
-            sendError(res, 500, 'An internal server error occurred while retrieving registers. Please try again later.', error);
+            sendError(res, error, 'An internal server error occurred while retrieving registers. Please try again later.');
         }
     }
 }

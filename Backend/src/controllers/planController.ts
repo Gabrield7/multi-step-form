@@ -8,13 +8,13 @@ class PlanController {
             const plans = await getPlans();
 
             if (!plans || plans.length === 0) {
-                sendSuccess(res, 200, 'No plans found.', []);
+                sendSuccess(res, 200, 'No plans found.');
                 return
             }
 
             sendSuccess(res, 200, 'Plans retrieved successfully.', plans);
         } catch (error) {
-            sendError(res, 500, 'An internal server error occurred while retrieving plans. Please try again later.', error);
+            sendError(res, error, 'An internal server error occurred while retrieving plans. Please try again later.');
         }
     }
 }

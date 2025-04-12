@@ -53,3 +53,13 @@ input:checked + .button__container{
         }
     }
 }
+
+@media (min-width: 600px){
+    .button__container{
+        flex-direction: column;
+
+        img{
+            margin-bottom: 3rem;
+        }
+    }
+}

@@ -1,4 +1,5 @@
 import { Response } from "express";
+import { AppError } from "./AppError";
 
 const sendSuccess = (res: Response, status = 200, message: string, data: any = null) => {
     return res.status(status).json({
@@ -9,14 +10,18 @@ const sendSuccess = (res: Response, status = 200, message: string, data: any = n
     });
 }
 
-const sendError = (res: Response, status = 500, message: string, error: any = null) => {
-    const isDev = process.env.NODE_ENV === 'development';
+const sendError = (res: Response, error: any = null, backing: string) => {
+    //const isDev = process.env.NODE_ENV === 'development';
+    const message = error instanceof Error && error.message
+        ? error.message
+        : backing;
+
+    const status = error instanceof AppError ? error.status : 500;
 
     return res.status(status).json({
         status,
         success: false,
-        message,
-        error: isDev ? error : 'Unexpected error'
+        message
     });
 }
 

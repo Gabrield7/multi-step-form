@@ -40,8 +40,6 @@ const insertPlan = async (userId: string, plan: IPlan) => {
 
     const addonsString = JSON.stringify(plan.addons);
 
-    console.log(plan);
-
     await db.run(
         `INSERT INTO Plan (user_id, name, cycle, addons, price) VALUES (?, ?, ?, ?, ?)`, 
         [userId, plan.name, plan.cycle, addonsString, plan.price]
