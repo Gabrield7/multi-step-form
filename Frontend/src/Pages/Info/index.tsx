@@ -15,18 +15,16 @@ export const Info = () => {
     const { user, setUser } = useUserStore();
     const { pageStatus, validatePage } = usePageValidationStore();
 
-    const { register, handleSubmit, watch, trigger, formState: { errors } } = useForm({
+    const { register, handleSubmit, watch, formState: { errors } } = useForm({
         resolver: zodResolver(userSchema),
         mode: 'onBlur',
         defaultValues: user
     });
 
     const handleBlur = async (field: FieldPath<UserSchema>) => { //validate when the field loses focus
-        const currentUser = watch();
+        const currentUser = watch(field);
 
-        const isValid = await trigger(field);
-
-        if (isValid) setUser({[field]: currentUser[field]});
+        if(!errors[field]) setUser({[field]: currentUser});
     };
 
     const onValid = async (data: UserSchema) => {

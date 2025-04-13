@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
     import('dotenv').then(dotenv => dotenv.config());
 }
 
-const checkData = async (req: VercelRequest, res: VercelResponse) => {
+const check = async (req: VercelRequest, res: VercelResponse) => {
     const API_KEY = process.env.API_KEY;
 
     if (!API_KEY) {
@@ -14,7 +14,7 @@ const checkData = async (req: VercelRequest, res: VercelResponse) => {
         return;
     }
   
-    const result = await fetch('https://multi-step-form-production-424f.up.railway.app/users/', {
+    const result = await fetch('https://multi-step-form-production-424f.up.railway.app/users', {
         headers: {
             'Content-Type': 'application/json',
             'x-api-key': API_KEY,
@@ -25,4 +25,4 @@ const checkData = async (req: VercelRequest, res: VercelResponse) => {
     res.status(result.status).json(data);
 }
 
-export default checkData;
+export default check;

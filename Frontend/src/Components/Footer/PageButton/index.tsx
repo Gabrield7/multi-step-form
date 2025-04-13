@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router';
 import { usePageValidationStore } from '@stores/PageStatusStore';
 import { useGlobalStore } from '@stores/mergeStorage';
+import { safeGetItem } from '@utils/encryptedStorage';
 import './PageButton.scss';
 
 interface IPageButtonProps{
@@ -8,8 +9,7 @@ interface IPageButtonProps{
 };
 
 const confirmRegister = async () => {
-    const storage = localStorage.getItem('signature-storage-global');
-    const data = storage ? JSON.parse(storage) : null;
+    const data = safeGetItem() || null;
 
     const user = data?.user;
     const plan = data?.plan;
@@ -60,7 +60,7 @@ export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {
         if(response.success){
             setSyncEnabled(false); //prevents the store to set the values back to the localStorage
 
-            const storage = localStorage.getItem('signature-storage-global');
+            const storage = safeGetItem();
             
             if(storage) localStorage.removeItem('signature-storage-global');
         }
@@ -86,10 +86,6 @@ export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {
         if (pathName === '/summary') {
             return { className: 'page-button confirm', text: 'Confirm', onClick: subcription };
         }
-
-        // if (pathName === '/info') {
-        //     return { className: 'page-button next', text: 'Next Step', onClick: userchecker };
-        // }
 
         return { 
             className: 'page-button next', 

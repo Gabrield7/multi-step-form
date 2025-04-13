@@ -26,7 +26,8 @@
     "paths": {
       "@components/*": ["Components/*"], 
       "@contexts/*": ["Contexts/*"],
-      "@stores/*": ["Stores/*"]
+      "@stores/*": ["Stores/*"],
+      "@utils/*": ["Utils/*"]
     }
   },
   "include": ["src"]

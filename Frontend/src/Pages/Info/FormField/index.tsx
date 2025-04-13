@@ -8,6 +8,7 @@ interface IFormFieldProps{
     placeholder: string
     register: UseFormRegisterReturn
     error?: FieldError
+    onCustomBlur?: () => void;
 }
 
 export const FormField: React.FC<IFormFieldProps> = ({ label, placeholder, register, error }) => {

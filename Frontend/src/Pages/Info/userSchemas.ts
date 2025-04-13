@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { safeGetItem } from '@utils/encryptedStorage';
 
 const userSchema = z.object({
     name: z.string()
@@ -13,8 +14,7 @@ const userSchema = z.object({
 }).superRefine(async (data, ctx) => {
     const { email, phone } = data;
 
-    const storageRaw = localStorage.getItem('signature-storage-global');
-    const storage = storageRaw ? JSON.parse(storageRaw) : null;
+    const storage = safeGetItem() || null;
     
     const originalEmail = storage?.user?.email;
     const originalPhone = storage?.user?.phone;
@@ -27,9 +27,8 @@ const userSchema = z.object({
     const res = await fetch(`/api/check?email=${email}&phone=${phone}`);
     const result = await res.json();
     
-    if (result.success) {
-        console.log('fetch');
-        
+    if (result.success && result.data) {  
+             
         if (result.data.checkEmail) {
             ctx.addIssue({
                 path: ['email'],

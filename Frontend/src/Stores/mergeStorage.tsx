@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware';
 import { usePlanStore } from '@stores/PlanStore';
 import { useUserStore } from '@stores/UserStore';
 import { usePageValidationStore } from '@stores/PageStatusStore';
+import { safeGetItem, safeSetItem } from '../Utils/encryptedStorage';
 
 interface GlobalStore {
     pageStatus: ReturnType<typeof usePageValidationStore>;
@@ -37,37 +38,33 @@ const useGlobalStore = create<GlobalStore>()(
                 };
 
                 set(updatedState);
-                localStorage.setItem('signature-storage-global', JSON.stringify(updatedState));
+                safeSetItem(updatedState)
             },
 
             initializeStores: () => {
-                const storedData = localStorage.getItem('signature-storage-global');
+                const storedData = safeGetItem();
                 if (storedData) {
-                    const parsedData = JSON.parse(storedData);
-
                     set({
-                        pageStatus: parsedData.pageStatus,
-                        user: parsedData.user,
-                        plan: parsedData.plan,
+                        pageStatus: storedData.pageStatus,
+                        user: storedData.user,
+                        plan: storedData.plan,
                         isInitialized: true
                     });
-
-                    usePageValidationStore.setState({ pageStatus: parsedData.pageStatus });
-                    useUserStore.setState({ user: parsedData.user });
-                    usePlanStore.setState({ plan: parsedData.plan });
+                    
+                    usePageValidationStore.setState({ pageStatus: storedData.pageStatus });
+                    useUserStore.setState({ user: storedData.user });
+                    usePlanStore.setState({ plan: storedData.plan });
                 }
             }
         }),
         {
             name: 'signature-storage-global',
             storage: {
-                getItem: (name) => {
-                    const storedValue = localStorage.getItem(name);
-                    return storedValue ? JSON.parse(storedValue) : {};
+                getItem: () => {
+                    const storedValue = safeGetItem();
+                    return storedValue ? storedValue : {};
                 },
-                setItem: (name, value) => {
-                    localStorage.setItem(name, JSON.stringify(value));
-                },
+                setItem: (_, value) => safeSetItem(value),
                 removeItem: (name) => localStorage.removeItem(name),
             },
         }
