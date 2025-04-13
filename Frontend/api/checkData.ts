@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
     import('dotenv').then(dotenv => dotenv.config());
 }
 
-const register = async (req: VercelRequest, res: VercelResponse) => {
+const checkData = async (req: VercelRequest, res: VercelResponse) => {
     const API_KEY = process.env.API_KEY;
 
     if (!API_KEY) {
@@ -14,17 +14,15 @@ const register = async (req: VercelRequest, res: VercelResponse) => {
         return;
     }
   
-    const result = await fetch('https://multi-step-form-production-424f.up.railway.app/register', {
-        method: 'POST',
+    const result = await fetch('https://multi-step-form-production-424f.up.railway.app/users/', {
         headers: {
             'Content-Type': 'application/json',
             'x-api-key': API_KEY,
-        },
-        body: JSON.stringify(req.body),
+        }
     });
   
     const data = await result.json();
     res.status(result.status).json(data);
 }
 
-export default register;
+export default checkData;

@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router';
 import { usePageValidationStore } from '@stores/PageStatusStore';
-import './PageButton.scss';
 import { useGlobalStore } from '@stores/mergeStorage';
+import './PageButton.scss';
 
 interface IPageButtonProps{
     type: 'back' | 'next'
@@ -54,9 +54,8 @@ export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {
     type PagePaths = '/info' | '/plan' | '/addons' | '/summary' | '/confirmation';
     const pathName = location.pathname as PagePaths
 
-    const handleClick = async (): Promise<void> => {
+    const subcription = async (): Promise<void> => {
         const response = await confirmRegister();
-        console.log(response.success);
 
         if(response.success){
             setSyncEnabled(false); //prevents the store to set the values back to the localStorage
@@ -85,8 +84,12 @@ export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {
         }
         
         if (pathName === '/summary') {
-            return { className: 'page-button confirm', text: 'Confirm', onClick: handleClick };
+            return { className: 'page-button confirm', text: 'Confirm', onClick: subcription };
         }
+
+        // if (pathName === '/info') {
+        //     return { className: 'page-button next', text: 'Next Step', onClick: userchecker };
+        // }
 
         return { 
             className: 'page-button next', 

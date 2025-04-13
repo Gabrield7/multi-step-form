@@ -30,14 +30,9 @@ class UserController {
             const checkEmail = email? await checkUserData('email', email as string) : undefined;
             const checkPhone = phone? await checkUserData('phone', phone as string) : undefined;
 
-            if(checkEmail) {
-                throw new AppError('This e-mail is already registered', 400);
-            };
-            if(checkPhone) {
-                throw new AppError('This e-mail is already registered', 400);
-            };
+            const response = {checkEmail, checkPhone};
 
-            sendSuccess(res, 200, 'Data successfully checked', {checkEmail, checkPhone});
+            sendSuccess(res, 200, 'Data successfully checked', response);
         } catch (error) {
             sendError(res, error, 'Error checking data');
         }

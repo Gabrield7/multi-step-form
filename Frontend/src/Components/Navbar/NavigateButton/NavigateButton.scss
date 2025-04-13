@@ -57,14 +57,14 @@
         &:hover {
             background-color: hsl(213, 96%, 18%, 0.2);
         }
+
+        &:hover > .navigate-button  {
+            @include buttonState($light-blue, $light-blue, $marine-blue);
+        }
     }
 
     &.normal .navigate-button {
         @include buttonState(transparent, $light-gray, $magnolia);
-    
-        &:hover {
-            @include buttonState($light-blue, $light-blue, $marine-blue);
-        }
     }
     
     &.active .navigate-button {

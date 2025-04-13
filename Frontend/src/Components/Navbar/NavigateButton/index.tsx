@@ -38,7 +38,6 @@ export const NavigateButton: React.FC<INavigateButton> = ({ label, name, path })
     
 
     return (
-        //className={'navigate-button__container'}
         <button 
             className={`navigate-button__container ${buttonClass}`}
             onClick={navigateToPage}

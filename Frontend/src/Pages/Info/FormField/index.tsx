@@ -24,6 +24,14 @@ export const FormField: React.FC<IFormFieldProps> = ({ label, placeholder, regis
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    const onlyNumbers = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const allowedKeys = ['Backspace', 'Tab', 'ArrowLeft', 'ArrowRight', 'Delete'];
+      
+        if ((e.key >= '0' && e.key <= '9') || allowedKeys.includes(e.key)) return;
+
+        e.preventDefault();
+    };
+
     return (
         <fieldset className='form-field'>
             <div className='labels'>
@@ -36,6 +44,8 @@ export const FormField: React.FC<IFormFieldProps> = ({ label, placeholder, regis
                 placeholder={placeholder}
                 autoComplete='off'
                 {...register}
+                inputMode={fieldID === 'phone' ? 'numeric' : undefined}
+                onKeyDown={(e) => fieldID === 'phone' ? onlyNumbers(e) : undefined}
             />
             <span className='error-message'>{width < 480? error?.message : ''}</span>
         </fieldset>

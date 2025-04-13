@@ -21,7 +21,8 @@ const sendError = (res: Response, error: any = null, backing: string) => {
     return res.status(status).json({
         status,
         success: false,
-        message
+        message,
+        data: error.data
     });
 }
 
