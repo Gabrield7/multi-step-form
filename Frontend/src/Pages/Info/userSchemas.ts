@@ -24,7 +24,8 @@ const userSchema = z.object({
 
     if (!emailChanged && !phoneChanged) return; 
     //const res = await fetch(`http://localhost:3000/users/check?email=${email}&phone=${phone}`);
-    const res = await fetch(`/api/check?email=${email}&phone=${phone}`);
+    const res = await fetch(`api/check?email=${email}&phone=${phone}`); //erro aqui
+    console.log(res)
     const result = await res.json();
     
     if (result.success && result.data) {  

@@ -3,6 +3,8 @@ import { usePageValidationStore } from '@stores/PageStatusStore';
 import { useGlobalStore } from '@stores/mergeStorage';
 import { safeGetItem } from '@utils/encryptedStorage';
 import './PageButton.scss';
+import { useContext } from 'react';
+import { LoadingContext } from '@contexts/LoadingContext';
 
 interface IPageButtonProps{
     type: 'back' | 'next'
@@ -18,7 +20,7 @@ const confirmRegister = async () => {
 
     try {
         //const response = await fetch('http://localhost:3000/register', {
-        const response = await fetch('api/register', {
+        const response = await fetch('/api', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({user, plan})
@@ -47,6 +49,7 @@ const confirmRegister = async () => {
 export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {   
     const { pageStatus, validatePage } = usePageValidationStore();
     const { setSyncEnabled } = useGlobalStore();
+    const { setIsLoading } = useContext(LoadingContext);
     
     const location = useLocation();
     const navigate = useNavigate();
@@ -55,7 +58,9 @@ export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {
     const pathName = location.pathname as PagePaths
 
     const subcription = async (): Promise<void> => {
+        setIsLoading(true);
         const response = await confirmRegister();
+        setIsLoading(false);
 
         if(response.success){
             setSyncEnabled(false); //prevents the store to set the values back to the localStorage

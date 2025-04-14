@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useGlobalStore } from "@stores/mergeStorage.tsx";
 import './Styles/app.scss';
 import './Styles/reset.css';
+import { LoadingProvider } from "@contexts/LoadingContext.tsx";
 
 export function App() {   
     const initializeStores = useGlobalStore((state) => state.initializeStores);
@@ -15,12 +16,14 @@ export function App() {
     }, [initializeStores]);
     
     return (
-        <BrowserRouter>
-            <Navbar />
-            <section className='body__container'>
-                <AppRoutes />
-                <Footer />
-            </section>
-        </BrowserRouter>
+        <LoadingProvider>
+            <BrowserRouter>
+                <Navbar />
+                    <section className='body__container'>
+                        <AppRoutes />
+                        <Footer />
+                    </section>
+            </BrowserRouter>
+        </LoadingProvider>
     )
 }

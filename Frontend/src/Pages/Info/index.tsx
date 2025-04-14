@@ -37,6 +37,9 @@ export const Info = () => {
     };
     
     return(
+        // <BodyPage>
+        //     <SpinningLoading />
+        // </BodyPage>
         <BodyPage 
             title={'Personal info'}
             subtitle={'Please provide your name, email address and phone number.'}

@@ -1,10 +1,5 @@
 //INTERMEDIARY API
-//import { Request, Response } from 'express';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-if (process.env.NODE_ENV !== 'production') {
-    import('dotenv').then(dotenv => dotenv.config());
-}
 
 const check = async (req: VercelRequest, res: VercelResponse) => {
     const API_KEY = process.env.API_KEY;

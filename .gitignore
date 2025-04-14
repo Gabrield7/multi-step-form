@@ -25,7 +25,11 @@ dist-ssr
 *.sw?
 
 style-guide.md
-Contexts
+PageValidationContext
+PlanContext
+UserContext
+AppProvider.tsx
+
 .env
 .env.production
 .vercel

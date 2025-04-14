@@ -12,6 +12,11 @@ export default defineConfig({
       '@stores': path.resolve(__dirname, 'src/Stores'),
       '@utils': path.resolve(__dirname, 'src/Utils'),
     }
+  },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3001', // redirects /api calls for vercel dev
+    }
   }
 })
 
