@@ -15,7 +15,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'http://localhost:3000', // redirects /api calls for vercel dev
+      '/api': { // redirects /api calls for vercel dev
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+      }
     }
   }
 })

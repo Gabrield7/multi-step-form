@@ -9,10 +9,17 @@ const check = async (req: VercelRequest, res: VercelResponse) => {
         return;
     }
     
-    //const result = await fetch('https://multi-step-form-production-424f.up.railway.app/users', {
-    const API_URL = process.env.API_URL;
+    // Obtain the params sended by GET query
+    const email = req.query.email as string;
+    const phone = req.query.phone as string;
 
-    const result = await fetch(`${API_URL}/users`, {
+    const queryParams = new URLSearchParams({ email, phone });
+
+    const API_URL = process.env.API_URL;
+    const url = `${API_URL}/users/check?${queryParams.toString()}`;
+    //const result = await fetch('https://multi-step-form-production-424f.up.railway.app/users', {
+
+    const result = await fetch(url, {
         headers: {
             'Content-Type': 'application/json',
             'x-api-key': API_KEY,

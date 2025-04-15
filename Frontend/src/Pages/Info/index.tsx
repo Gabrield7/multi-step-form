@@ -1,4 +1,3 @@
-//import { useEffect } from 'react';
 import { BodyPage } from '@components/BodyPage';
 import { FormField } from './FormField';
 import { useNavigate } from 'react-router';
@@ -6,8 +5,23 @@ import { useUserStore } from '@stores/UserStore';
 import { usePageValidationStore } from '@stores/PageStatusStore';
 import { FieldPath, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { userSchemaSync, userSchemaAsync, UserSchema } from './userSchemas';
+import { z } from 'zod';
+import { setUserError } from './userValidation';
 import './Info.scss';
+
+const userSchema = z.object({
+    name: z.string()
+        .min(1, 'This field is required')
+        .regex(/^[a-zA-ZÀ-ÖØ-öø-ÿ]{2,}(?:\s+[a-zA-ZÀ-ÖØ-öø-ÿ]{2,})+$/, { message: 'Invalid name' }),
+    email: z.string()
+        .min(1, 'This field is required')
+        .regex(/\S+@\S+\.\S+/, { message: 'Invalid email address' }),
+    phone: z.string()
+        .min(1, 'This field is required')
+        .regex(/^(?:\D*\d\D*){8,15}$/, { message: 'Invalid phone number' }),
+});
+
+export type UserSchema = z.infer<typeof userSchema>
 
 export const Info = () => {    
     const navigate = useNavigate();
@@ -16,7 +30,7 @@ export const Info = () => {
     const { pageStatus, validatePage } = usePageValidationStore();
 
     const { register, handleSubmit, watch, setError, formState: { errors } } = useForm({
-        resolver: zodResolver(userSchemaSync),
+        resolver: zodResolver(userSchema),
         mode: 'onBlur',
         defaultValues: user
     });
@@ -28,27 +42,16 @@ export const Info = () => {
     };
 
     const onValid = async (data: UserSchema) => {
-        const result = await userSchemaAsync.safeParseAsync(data);
-
-        if (!result.success) {
-            result.error.errors.forEach((err) => {
-                const field = err.path[0];
-                const message = err.message;
+        // Synchronous validation using the schema
+        const result = userSchema.safeParse(data)
         
-                setError(field as keyof UserSchema, {
-                    type: 'manual',
-                    message,
-                });
-            });
-        
-            return; // para não continuar o fluxo
-        }
-        
+        setUserError(result, data, setError);
+      
+        // If all validations pass, update the state and navigate to the next page
         const formChanged = JSON.stringify(data) !== JSON.stringify(user);
-        
-        if(formChanged) setUser(data);
-        if(!pageStatus['/plan']) validatePage('/plan', true);
-
+        if (formChanged) setUser(data);
+        if (!pageStatus['/plan']) validatePage('/plan', true);
+      
         navigate('/plan');
     };
     
