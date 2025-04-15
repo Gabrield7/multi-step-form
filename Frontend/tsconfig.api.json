@@ -1,10 +1,10 @@
 {
-    "compilerOptions": {
-      "target": "ESNext",
-      "module": "CommonJS",
-      "strict": true,
-      "esModuleInterop": true,
-      "skipLibCheck": true
-    },
-    "include": ["api"]
-  }
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["api"]
+}

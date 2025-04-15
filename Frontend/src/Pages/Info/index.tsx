@@ -6,7 +6,7 @@ import { useUserStore } from '@stores/UserStore';
 import { usePageValidationStore } from '@stores/PageStatusStore';
 import { FieldPath, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { userSchema, UserSchema } from './userSchemas';
+import { userSchemaSync, userSchemaAsync, UserSchema } from './userSchemas';
 import './Info.scss';
 
 export const Info = () => {    
@@ -15,8 +15,8 @@ export const Info = () => {
     const { user, setUser } = useUserStore();
     const { pageStatus, validatePage } = usePageValidationStore();
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm({
-        resolver: zodResolver(userSchema),
+    const { register, handleSubmit, watch, setError, formState: { errors } } = useForm({
+        resolver: zodResolver(userSchemaSync),
         mode: 'onBlur',
         defaultValues: user
     });
@@ -28,6 +28,22 @@ export const Info = () => {
     };
 
     const onValid = async (data: UserSchema) => {
+        const result = await userSchemaAsync.safeParseAsync(data);
+
+        if (!result.success) {
+            result.error.errors.forEach((err) => {
+                const field = err.path[0];
+                const message = err.message;
+        
+                setError(field as keyof UserSchema, {
+                    type: 'manual',
+                    message,
+                });
+            });
+        
+            return; // para não continuar o fluxo
+        }
+        
         const formChanged = JSON.stringify(data) !== JSON.stringify(user);
         
         if(formChanged) setUser(data);
@@ -37,9 +53,6 @@ export const Info = () => {
     };
     
     return(
-        // <BodyPage>
-        //     <SpinningLoading />
-        // </BodyPage>
         <BodyPage 
             title={'Personal info'}
             subtitle={'Please provide your name, email address and phone number.'}

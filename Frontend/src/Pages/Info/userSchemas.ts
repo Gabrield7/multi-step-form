@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { safeGetItem } from '@utils/encryptedStorage';
 
-const userSchema = z.object({
+const userSchemaSync = z.object({
     name: z.string()
         .min(1, 'This field is required')
         .regex(/^[a-zA-ZÀ-ÖØ-öø-ÿ]{2,}(?:\s+[a-zA-ZÀ-ÖØ-öø-ÿ]{2,})+$/, { message: 'Invalid name' }),
@@ -11,7 +11,9 @@ const userSchema = z.object({
     phone: z.string()
         .min(1, 'This field is required')
         .regex(/^(?:\D*\d\D*){8,15}$/, { message: 'Invalid phone number' }),
-}).superRefine(async (data, ctx) => {
+})
+
+const userSchemaAsync = userSchemaSync.superRefine(async (data, ctx) => {
     const { email, phone } = data;
 
     const storage = safeGetItem() || null;
@@ -23,10 +25,11 @@ const userSchema = z.object({
     const phoneChanged = phone !== originalPhone;
 
     if (!emailChanged && !phoneChanged) return; 
+
     //const res = await fetch(`http://localhost:3000/users/check?email=${email}&phone=${phone}`);
-    const res = await fetch(`api/check?email=${email}&phone=${phone}`); //erro aqui
-    console.log(res)
+    const res = await fetch(`api/check?email=${email}&phone=${phone}`);
     const result = await res.json();
+    console.log('fetch');
     
     if (result.success && result.data) {  
              
@@ -47,6 +50,6 @@ const userSchema = z.object({
     }
 });
 
-export type UserSchema = z.infer<typeof userSchema>
+export type UserSchema = z.infer<typeof userSchemaSync>
 
-export { userSchema }
+export { userSchemaSync, userSchemaAsync }

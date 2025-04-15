@@ -8,8 +8,11 @@ const check = async (req: VercelRequest, res: VercelResponse) => {
         res.status(500).json({ message: 'API key is not set' });
         return;
     }
-  
-    const result = await fetch('https://multi-step-form-production-424f.up.railway.app/users', {
+    
+    //const result = await fetch('https://multi-step-form-production-424f.up.railway.app/users', {
+    const API_URL = process.env.API_URL;
+
+    const result = await fetch(`${API_URL}/users`, {
         headers: {
             'Content-Type': 'application/json',
             'x-api-key': API_KEY,

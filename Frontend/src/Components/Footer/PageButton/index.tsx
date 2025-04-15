@@ -2,49 +2,14 @@ import { useLocation, useNavigate } from 'react-router';
 import { usePageValidationStore } from '@stores/PageStatusStore';
 import { useGlobalStore } from '@stores/mergeStorage';
 import { safeGetItem } from '@utils/encryptedStorage';
-import './PageButton.scss';
 import { useContext } from 'react';
 import { LoadingContext } from '@contexts/LoadingContext';
+import { confirmRegister } from './confirmRegister';
+import './PageButton.scss';
 
 interface IPageButtonProps{
     type: 'back' | 'next'
 };
-
-const confirmRegister = async () => {
-    const data = safeGetItem() || null;
-
-    const user = data?.user;
-    const plan = data?.plan;
-
-    if (!user || !plan) return;
-
-    try {
-        //const response = await fetch('http://localhost:3000/register', {
-        const response = await fetch('/api', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({user, plan})
-        });
-        
-        const body = await response.json();
-
-        if (!response.ok) {
-            return {
-                success: false,
-                message: body.message || 'Unnexpected server error',
-                status: body.status || response.status,
-            };
-        }
-
-        return body;
-    } catch (error) {
-        return { 
-            success: false,
-            message: 'Failed to connect to server. Please try again later',
-            error
-        }
-    }
-}
 
 export const PageButton: React.FC<IPageButtonProps> = ({ type }) => {   
     const { pageStatus, validatePage } = usePageValidationStore();
