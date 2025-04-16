@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { usePageValidationStore } from '@stores/PageStatusStore';
 import './NavigateButton.scss';
+import { LoadingContext } from '@contexts/LoadingContext';
 
 interface INavigateButton{
     label: number
@@ -12,12 +13,15 @@ interface INavigateButton{
 export const NavigateButton: React.FC<INavigateButton> = ({ label, name, path }) => {
     const location = useLocation();
     const navigate = useNavigate();
+    const { isLoading } = useContext(LoadingContext);
 
     const [buttonClass, setButtonClass] = useState<'normal' | 'active' | 'disabled'>('normal');
 
     const { pageStatus } = usePageValidationStore();
     
     const navigateToPage = () => {
+        if(isLoading) return;
+        
         const isPageEnabled = pageStatus[path] ?? false;
         
         if(isPageEnabled) navigate(path)

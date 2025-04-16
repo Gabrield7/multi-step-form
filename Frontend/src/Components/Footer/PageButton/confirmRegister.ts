@@ -5,7 +5,7 @@ export const confirmRegister = async () => {
 
     const user = data?.user;
     const plan = data?.plan;
-
+    
     if (!user || !plan) return;
 
     try {

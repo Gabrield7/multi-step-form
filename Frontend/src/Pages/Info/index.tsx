@@ -1,35 +1,25 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FieldPath, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
+import { useContext, useEffect, useState } from 'react';
 import { BodyPage } from '@components/BodyPage';
 import { FormField } from './FormField';
-import { useNavigate } from 'react-router';
 import { useUserStore } from '@stores/UserStore';
 import { usePageValidationStore } from '@stores/PageStatusStore';
-import { FieldPath, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { setUserError } from './userValidation';
+import { setUserError, userSchema, UserSchema } from '@utils/userValidation';
+import { LoadingContext } from '@contexts/LoadingContext';
+import { SpinningLoading } from '@components/spinningLoading';
 import './Info.scss';
-
-const userSchema = z.object({
-    name: z.string()
-        .min(1, 'This field is required')
-        .regex(/^[a-zA-ZÀ-ÖØ-öø-ÿ]{2,}(?:\s+[a-zA-ZÀ-ÖØ-öø-ÿ]{2,})+$/, { message: 'Invalid name' }),
-    email: z.string()
-        .min(1, 'This field is required')
-        .regex(/\S+@\S+\.\S+/, { message: 'Invalid email address' }),
-    phone: z.string()
-        .min(1, 'This field is required')
-        .regex(/^(?:\D*\d\D*){8,15}$/, { message: 'Invalid phone number' }),
-});
-
-export type UserSchema = z.infer<typeof userSchema>
 
 export const Info = () => {    
     const navigate = useNavigate();
 
     const { user, setUser } = useUserStore();
     const { pageStatus, validatePage } = usePageValidationStore();
+    const { setIsLoading, isLoading } = useContext(LoadingContext);
+    const [firstValidation, setFirstValidation] = useState(true);
 
-    const { register, handleSubmit, watch, setError, formState: { errors } } = useForm({
+    const { register, handleSubmit, watch, setError, trigger, formState: { errors } } = useForm({
         resolver: zodResolver(userSchema),
         mode: 'onBlur',
         defaultValues: user
@@ -37,15 +27,44 @@ export const Info = () => {
 
     const handleBlur = async (field: FieldPath<UserSchema>) => { //validate when the field loses focus
         const currentUser = watch(field);
-
-        if(!errors[field]) setUser({[field]: currentUser});
+        
+        const isValid = await trigger(field);
+        
+        if(isValid) {
+            setUser({ [field]: currentUser });
+        }
     };
+
+    useEffect(() => {
+        const validate = async () => {
+            setIsLoading(true);
+            const dataToValidate = {
+                email: user.email,
+                phone: user.phone
+            }
+
+            const result = userSchema.safeParse(user);
+
+            if(firstValidation){
+                await trigger();
+                await setUserError(result, dataToValidate, setError);
+                setFirstValidation(false);  
+            }
+            setIsLoading(false);
+        }
+
+        validate();
+    }, [setIsLoading, setFirstValidation, firstValidation, setError, user, trigger]);
 
     const onValid = async (data: UserSchema) => {
         // Synchronous validation using the schema
-        const result = userSchema.safeParse(data)
-        
-        setUserError(result, data, setError);
+        const result = userSchema.safeParse(data);
+
+        setIsLoading(true);
+        const errors = await setUserError(result, data, setError);
+        setIsLoading(false);
+
+        if (errors) return; // If any error was set, stop the flow
       
         // If all validations pass, update the state and navigate to the next page
         const formChanged = JSON.stringify(data) !== JSON.stringify(user);
@@ -55,8 +74,9 @@ export const Info = () => {
         navigate('/plan');
     };
     
-    return(
-        <BodyPage 
+    return isLoading?
+        (<BodyPage><SpinningLoading /></BodyPage>) :
+        (<BodyPage 
             title={'Personal info'}
             subtitle={'Please provide your name, email address and phone number.'}
         >

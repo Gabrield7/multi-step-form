@@ -11,7 +11,6 @@ const sendSuccess = (res: Response, status = 200, message: string, data: any = n
 }
 
 const sendError = (res: Response, error: any = null, backing: string) => {
-    //const isDev = process.env.NODE_ENV === 'development';
     const message = error instanceof Error && error.message
         ? error.message
         : backing;

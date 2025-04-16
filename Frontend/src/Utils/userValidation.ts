@@ -1,16 +1,29 @@
-import { SafeParseReturnType } from 'zod';
-import { UserSchema } from './index';
+import { z, SafeParseReturnType } from 'zod';
 import { UseFormSetError } from 'react-hook-form';
 
-export interface CheckUserResponse {
+interface CheckUserResponse {
     emailError?: string;
     phoneError?: string;
 }
 
-export const checkUser = async (email: string, phone: string): Promise<CheckUserResponse> => {
+export const userSchema = z.object({
+    name: z.string()
+        .min(1, 'This field is required')
+        .regex(/^[a-zA-ZÀ-ÖØ-öø-ÿ]{2,}(?:\s+[a-zA-ZÀ-ÖØ-öø-ÿ]{2,})+$/, { message: 'Invalid name' }),
+    email: z.string()
+        .min(1, 'This field is required')
+        .regex(/\S+@\S+\.\S+/, { message: 'Invalid email address' }),
+    phone: z.string()
+        .min(1, 'This field is required')
+        .regex(/^(?:\D*\d\D*){8,15}$/, { message: 'Invalid phone number' }),
+});
+
+export type UserSchema = z.infer<typeof userSchema>
+
+export const checkUserData = async (email: string, phone: string): Promise<CheckUserResponse> => {
     const errors: CheckUserResponse = {};
 
-    const res = await fetch(`api/check?email=${email}&phone=${phone}`);
+    const res = await fetch(`/api/check?email=${email}&phone=${phone}`);
     const result = await res.json();
     
     if (result.success) {
@@ -20,17 +33,20 @@ export const checkUser = async (email: string, phone: string): Promise<CheckUser
         if (result.data.checkPhone) {
             errors.phoneError = 'This phone number is already registered';
         }
-    }
+    };
 
     return errors;
 };
 
 export const setUserError = async (
     result: SafeParseReturnType<UserSchema, UserSchema>, 
-    data: UserSchema, 
+    data: Partial<UserSchema>, 
     setError: UseFormSetError<UserSchema>
-) => {    
+): Promise<boolean> => {    
+    let error = false;
+
     if (!result.success) { //set error manually
+        error = true;
         result.error.errors.forEach((error) => {
             const field = error.path[0];
             const message = error.message;
@@ -40,30 +56,28 @@ export const setUserError = async (
                 message,
             });
         });
-        return; // Stop flow if there is a format error
-    }
+    };
     
     // Execute the modular asynchronous validation
     const { email, phone } = data;
-    const errors = await checkUser(email, phone);
+    const errors = await checkUserData(email as string, phone as string);
     
     if (errors.emailError) {
+        error = true;
         setError('email', {
             type: 'manual',
             message: errors.emailError,
         });
-    }
+    };
 
     if (errors.phoneError) {
+        error = true;
         setError('phone', {
             type: 'manual',
             message: errors.phoneError,
         });
-    }
+    };
     
-    // If any error was set, stop the flow
-    if (errors.emailError || errors.phoneError) {
-        return;
-    }
+    return error;
 }
 

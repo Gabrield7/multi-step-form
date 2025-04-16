@@ -18,11 +18,17 @@
         margin-bottom: 1rem;
     }
 
-    .message-description{
+    .message-description, .click-message{
         font-weight: 400;
         font-size: 16px;
         color: $cool-gray;
         margin-bottom: 2rem;
         line-height: 1.5;
+    }
+
+    .click-message{
+        all: unset;
+        cursor: pointer;
+        color: $purplish-blue
     }
 }

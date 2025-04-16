@@ -1,12 +1,29 @@
 import { Request, Response} from 'express';
 import { getRegister, insertRegister } from '../models/register';
 import { sendError, sendSuccess } from '../utils/responseHelpers';
+import { checkUserData } from '../models/user';
+import { AppError } from '../utils/AppError';
 
 class RegisterController {
     static createRegister = async (req: Request, res: Response) => {
         try {
             const user = req.body.user;
             const plan = req.body.plan;
+
+            const checkEmail = await checkUserData('email', user.email);
+            const checkPhone = await checkUserData('phone', user.phone);
+
+            const getDuplicateMessage = (checkEmail: boolean, checkPhone: boolean): string => {
+                if (checkEmail && checkPhone) 
+                    return 'Phone number and email already registered, please choose another one';
+                if (checkEmail) 
+                    return 'Email already registered, please choose another one';
+                return 'Phone number already registered, please choose another one';
+            }
+
+            if(checkEmail || checkPhone){
+                throw new AppError(getDuplicateMessage(checkEmail, checkPhone), 400);
+            }
 
             if(!user || !plan) {
                 sendError(res, 400, 'User or Plan is required');

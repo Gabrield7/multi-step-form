@@ -1,6 +1,9 @@
 {
-    "rewrites": [
-        { "source": "/api/(.*)", "destination": "/api/$1" },
-        { "source": "/(.*)", "destination": "/" }
-    ]
+	"version": 2,
+	"devCommand": "npm run dev",
+	"buildCommand": "vite build",
+	"rewrites": [
+		{ "source": "/api/(.*)", "destination": "/api/$1" },
+		{ "source": "/(.*)", "destination": "/" }
+	]
 }
