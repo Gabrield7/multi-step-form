@@ -27,7 +27,8 @@
       "@components/*": ["Components/*"], 
       "@contexts/*": ["Contexts/*"],
       "@stores/*": ["Stores/*"],
-      "@utils/*": ["Utils/*"]
+      "@utils/*": ["Utils/*"],
+      "@hooks/*": ["Hooks/*"]
     }
   },
   "include": ["src"]

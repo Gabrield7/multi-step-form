@@ -11,12 +11,13 @@ export default defineConfig({
       '@contexts': path.resolve(__dirname, 'src/Contexts'),
       '@stores': path.resolve(__dirname, 'src/Stores'),
       '@utils': path.resolve(__dirname, 'src/Utils'),
+      '@hooks': path.resolve(__dirname, 'src/Hooks'),
     }
   },
   server: {
     proxy: {
       '/api': { // redirects /api calls for vercel dev
-        target: 'http://localhost:3000',
+        target: 'http://localhost:3001',
         changeOrigin: true,
       }
     }

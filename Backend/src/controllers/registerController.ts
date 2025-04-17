@@ -10,6 +10,10 @@ class RegisterController {
             const user = req.body.user;
             const plan = req.body.plan;
 
+            if(!user || !plan) {
+                throw new AppError('User or Plan is required', 400);
+            };
+
             const checkEmail = await checkUserData('email', user.email);
             const checkPhone = await checkUserData('phone', user.phone);
 
@@ -22,14 +26,9 @@ class RegisterController {
             }
 
             if(checkEmail || checkPhone){
-                throw new AppError(getDuplicateMessage(checkEmail, checkPhone), 400);
+                throw new AppError(getDuplicateMessage(checkEmail, checkPhone), 409);
             }
 
-            if(!user || !plan) {
-                sendError(res, 400, 'User or Plan is required');
-                return
-            };
-            
             await insertRegister(user, plan);
 
             sendSuccess(res, 201, 'User and Plan successfully registered');

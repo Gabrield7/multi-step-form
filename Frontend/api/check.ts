@@ -3,9 +3,6 @@ export async function GET(request: Request): Promise<Response> {
     const API_KEY = process.env.API_KEY;
     const API_URL = process.env.API_URL;
 
-    console.log('[Function Start] API_URL:', API_URL);
-    console.log('[Function Start] API_KEY:', API_KEY ? 'set' : 'not set');
-
     if (!API_KEY || !API_URL) {
         return new Response(
             JSON.stringify({ message: 'API key is not set' }),
