@@ -14,7 +14,7 @@ const createPlanTable = async () => {
 
     await db.exec(`
         CREATE TABLE IF NOT EXISTS Plan (
-            user_id TEXT NOT NULL,
+            user_id TEXT NOT NULL UNIQUE,
             name TEXT NOT NULL,
             cycle TEXT NOT NULL,
             addons TEXT,
@@ -27,12 +27,24 @@ const createPlanTable = async () => {
 const getPlans = async () => { //available only for dev
     const db = await openDb();
 
-    const rows = await db.all('SELECT * FROM Plan');
+    const plans = await db.all('SELECT * FROM Plan');
 
-    return rows.map(plan => ({
+    return plans.map(plan => ({
         ...plan,
         addons: JSON.parse(plan.addons)
     }));
+}
+
+const getPlanByUserID = async (userID: string) => { //available only for dev
+    const db = await openDb();
+
+    const plan = await db.get(`SELECT * FROM Plan WHERE user_id = `, [userID]);
+    if(!plan) return undefined;
+
+    return {
+        ...plan,
+        addons: JSON.parse(plan.addons)
+    };
 }
 
 const insertPlan = async (userId: string, plan: IPlan) => {
@@ -46,12 +58,44 @@ const insertPlan = async (userId: string, plan: IPlan) => {
     );
 }
 
+const updatePlanByUserID = async (userID: string, data: Partial<IPlan>) => { //available only for dev
+    const keys = Object.keys(data);
+    if(keys.length === 0) return;
+
+    const db = await openDb();
+
+    const clause = keys.map(field => `${field} = ?`).join(', ');
+
+    const adjustValues = () => {
+        if(data.addons){
+            const addonsString = JSON.stringify(data.addons);
+            const dataAdjust = {
+                ...data,
+                addons: addonsString
+            }
+
+            return Object.values(dataAdjust);
+        }
+
+        return Object.values(data)
+    }
+
+    const result = await db.run(
+        `UPDATE Plan
+        SET ${clause}
+        WHERE user_id = ?`, 
+        [...adjustValues(), userID]
+    );
+
+    return result.changes; //returns 0 if no user was updated (id not exists)
+}
+
 const deletePlan = async (id: string) => { //available only for dev
     const db = await openDb();
 
     const result = await db.run(`DELETE FROM Plan WHERE id = ?`, [id]);
 
-    return result.changes; //returns 0 if no user was deleted
+    return result.changes; //returns 0 if no user was deleted (id not exists)
 }
 
-export { createPlanTable, getPlans, insertPlan, deletePlan, IPlan };
+export { createPlanTable, getPlans, getPlanByUserID, updatePlanByUserID, insertPlan, deletePlan, IPlan };

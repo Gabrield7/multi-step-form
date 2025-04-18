@@ -1,13 +1,17 @@
 @use '@styles/variables' as *;
 
+html {
+    height: 100%;
+}
+
 body, #root{
     display: flex;
     flex-direction: column;
     width: 100%;
     min-width: 320px;
     max-width: 1440px;
-    height: 100%;
     min-height: 100vh;
+    min-height: 100dvh;
     background-color: $light-gray;
     transition: all 0.3s ease-in-out;
 }
@@ -15,15 +19,10 @@ body, #root{
 .body__container{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     width: 100%;
-
     max-width: 700px;
-    height: 100%;
-    min-height: 100vh;
-
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
+    flex: 1;
 }
 
 @media (min-width: 480px) {
@@ -33,6 +32,7 @@ body, #root{
     }
     .body__container{
         flex-grow: 1;
+        min-height: 100vh;
     }
 }
 

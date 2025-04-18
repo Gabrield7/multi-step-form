@@ -52,15 +52,17 @@ export const Info = () => {
             setIsLoading(true);
 
             const dataToValidate = {
-                email: user.email,
-                phone: user.phone
-            }
-
+                ...(user.email && { email: user.email }),
+                ...(user.phone && { phone: user.phone }),
+            };
+            
             const result = userSchema.safeParse(user);
 
             if(firstRun.current){
-                await trigger();
-                await setUserError(result, dataToValidate, setError);
+                if(Object.keys(dataToValidate).length !== 0){
+                    await setUserError(result, dataToValidate, setError);
+                }
+
                 firstRun.current = false;
             }
 

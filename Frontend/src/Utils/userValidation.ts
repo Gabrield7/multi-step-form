@@ -9,29 +9,34 @@ interface CheckUserResponse {
 export const userSchema = z.object({
     name: z.string()
         .min(1, 'This field is required')
-        .regex(/^[a-zA-ZÀ-ÖØ-öø-ÿ]{2,}(?:\s+[a-zA-ZÀ-ÖØ-öø-ÿ]{2,})+$/, { message: 'Invalid name' }),
+        .regex(/^[a-zA-ZÀ-ÖØ-öø-ÿ]{2,}(?:\s+[a-zA-ZÀ-ÖØ-öø-ÿ]{2,})+$/, { message: 'Invalid user name.' }),
     email: z.string()
         .min(1, 'This field is required')
-        .regex(/\S+@\S+\.\S+/, { message: 'Invalid email address' }),
+        .regex(/\S+@\S+\.\S+/, { message: 'Invalid email address.' }),
     phone: z.string()
         .min(1, 'This field is required')
-        .regex(/^(?:\D*\d\D*){8,15}$/, { message: 'Invalid phone number' }),
+        .regex(/^(?:\D*\d\D*){8,15}$/, { message: 'Invalid phone number.' }),
 });
 
 export type UserSchema = z.infer<typeof userSchema>
 
-export const checkUserData = async (email: string, phone: string): Promise<CheckUserResponse> => {
+export const checkUserData = async (email?: string, phone?: string): Promise<CheckUserResponse> => {
     const errors: CheckUserResponse = {};
+    if(!email && !phone) return errors;
 
-    const res = await fetch(`/api/check?email=${email}&phone=${phone}`);
-    const result = await res.json();
+    const params = new URLSearchParams();
+    if (email) params.append('email', email);
+    if (phone) params.append('phone', phone);
+
+    const res = await fetch(`/api/check?${params.toString()}`);
+    const result = await res.json();   
     
     if (result.success) {
         if (result.data.checkEmail) {
-            errors.emailError = 'This email is already registered';
+            errors.emailError = 'This email is already registered.';
         }
         if (result.data.checkPhone) {
-            errors.phoneError = 'This phone number is already registered';
+            errors.phoneError = 'This phone number is already registered.';
         }
     };
 
@@ -60,6 +65,7 @@ export const setUserError = async (
     
     // Execute the modular asynchronous validation
     const { email, phone } = data;
+    //if(email ===)
     const errors = await checkUserData(email as string, phone as string);
     
     if (errors.emailError) {
