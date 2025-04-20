@@ -11,6 +11,7 @@
         display: flex;
         position: absolute;
         width: 100vw;
+        min-width: 100%;
         aspect-ratio: 375 / 172;
         background-image: url('/assets/images/bg-sidebar-mobile.svg');
         background-size: contain;
@@ -32,13 +33,19 @@
         margin: 1rem;
         flex-grow: 1;
         min-width: 50px;
-        max-width: 210px;
+        max-width: 100px;
         padding: 3rem 1rem;
         gap: 1rem;
 
         &::before{
             display: none;
         }
+    }
+}
+
+@media (min-width: 650px){
+    .navbar__container{
+        max-width: 210px;
     }
 }
 

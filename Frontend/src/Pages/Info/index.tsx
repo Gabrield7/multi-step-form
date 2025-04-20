@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FieldPath, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { FieldPath, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { BodyPage } from '@components/BodyPage';
 import { FormField } from './FormField';
 import { useUserStore } from '@stores/UserStore';
@@ -13,7 +13,7 @@ import { ConfirmationPage } from '@components/ConfirmationPage';
 import { useTimeout } from '@hooks/useTimeout';
 import './Info.scss';
 
-export const Info = () => {    
+export const Info = () => {
     const navigate = useNavigate();
     const { user, setUser } = useUserStore();
     const { pageStatus, validatePage } = usePageValidationStore();
@@ -21,14 +21,15 @@ export const Info = () => {
     const [reqFail, setReqFail] = useState(false);
     const firstRun = useRef(true);
 
-    const { register, handleSubmit, watch, setError, trigger, formState: { errors } } = useForm({
+    const { register, handleSubmit, watch, setError, trigger, formState: { errors, isDirty } } = useForm({
         resolver: zodResolver(userSchema),
-        mode: 'onBlur',
+        mode: 'onTouched',
         defaultValues: user
     });
 
     // Handle field blur: validate and update store
     const handleBlur = async (field: FieldPath<UserSchema>) => { //validate when the field loses focus
+        if(!isDirty) return;
         const currentUser = watch(field);
         
         const isValid = await trigger(field);

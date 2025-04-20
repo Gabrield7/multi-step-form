@@ -29,12 +29,12 @@ class UserController {
 
             const result = await getUserById(id);
 
-            if(result === 0){
-                sendSuccess(res, 200, 'User not found.');
-                return
-            }
+            // if(result === 0){
+            //     sendSuccess(res, 200, 'User not found.');
+            //     return
+            // }
 
-            sendSuccess(res, 200, `User ID: ${id} retrieved successfully`);
+            sendSuccess(res, 200, `User ID: ${id} retrieved successfully`, result);
         } catch(error) {
             sendError(res, error, 'An internal server error occurred while retrieving users. Please try again later.');
         }

@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { getPlans, IPlan } from "../models/plan";
+import { getPlanByUserID, getPlans, IPlan } from "../models/plan";
 import { sendError, sendSuccess } from '../utils/responseHelpers';
 import { AppError } from '../utils/AppError';
 
 class PlanController {
-    static listPlan = async (req: Request, res: Response) => { //available only for dev
+    static listPlans = async (req: Request, res: Response) => { //available only for dev
         try {
             const plans = await getPlans();
 
@@ -16,6 +16,27 @@ class PlanController {
             sendSuccess(res, 200, 'Plans retrieved successfully.', plans);
         } catch (error) {
             sendError(res, error, 'An internal server error occurred while retrieving plans. Please try again later.');
+        }
+    }
+
+    static listPlanByUserID = async (req: Request, res: Response) => { //available only for dev
+        try {
+            const userID = req.params.id;
+
+            if(!userID) {
+                throw new AppError('User ID is required', 400);
+            };
+
+            const result = await getPlanByUserID(userID);
+
+            // if(result === 0){
+            //     sendSuccess(res, 200, 'User not found.');
+            //     return
+            // }
+
+            sendSuccess(res, 200, `Plan from User ID: ${userID} retrieved successfully`, result);
+        } catch(error) {
+            sendError(res, error, 'An internal server error occurred while retrieving users. Please try again later.');
         }
     }
 
@@ -70,6 +91,9 @@ class PlanController {
         } catch(error) {
             sendError(res, error, 'An internal server error occurred while retrieving users. Please try again later.');
         }
+    }
+
+    static deletePlan = async (req: Request, res: Response) => { //available only for dev
     }
 }
 

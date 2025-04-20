@@ -37,7 +37,7 @@ export const FormField: React.FC<IFormFieldProps> = ({ label, placeholder, regis
         <fieldset className='form-field'>
             <div className='labels'>
                 <label htmlFor={fieldID}>{label}</label>
-                <span className='error-message'>{width >= 480? error?.message : ''}</span>
+                <span className='error-message'>{width >= 750? error?.message : ''}</span>
             </div>
             <input 
                 id={fieldID}
@@ -48,7 +48,7 @@ export const FormField: React.FC<IFormFieldProps> = ({ label, placeholder, regis
                 inputMode={fieldID === 'phone' ? 'numeric' : undefined}
                 onKeyDown={(e) => fieldID === 'phone' ? onlyNumbers(e) : undefined}
             />
-            <span className='error-message'>{width < 480? error?.message : ''}</span>
+            <span className='error-message'>{width < 750? error?.message : ''}</span>
         </fieldset>
     )
 };

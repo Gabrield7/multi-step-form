@@ -36,3 +36,9 @@ body, #root{
     }
 }
 
+@media (min-width: 650px) {
+    .body__container{
+        min-width: 500px;
+    }
+}
+

@@ -1,4 +1,5 @@
 import { openDb } from "../dbConfig/dbConnect"
+import { AppError } from "../utils/AppError";
 
 type AddonType = 'Online service' | 'Larger storage' | 'Customizable profile';
 
@@ -39,7 +40,10 @@ const getPlanByUserID = async (userID: string) => { //available only for dev
     const db = await openDb();
 
     const plan = await db.get(`SELECT * FROM Plan WHERE user_id = `, [userID]);
-    if(!plan) return undefined;
+    
+    if(!plan){
+        throw new AppError('Plan not found.', 400);
+    }
 
     return {
         ...plan,
