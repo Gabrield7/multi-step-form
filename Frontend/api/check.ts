@@ -1,7 +1,6 @@
-//INTERMEDIARY API
 export async function GET(request: Request): Promise<Response> {
     const API_KEY = process.env.API_KEY;
-    const API_URL = process.env.API_URL;
+    const API_URL= 'https://YOUR_NGROK.ngrok-free.app';
 
     if (!API_KEY || !API_URL) {
         return new Response(

@@ -169,7 +169,8 @@ If you want to test the server directly through its endpoints, check the tables 
 
 - This is my first React and Typescript project using vite technology;
 - It is also the first Frontend-end project with full backend integration, using developemnt and production enviroments;
-- The Frontend was published on [Vercel](https://vercel.com/docs) and Backend (including sqlite database) published on [Railway](https://railway.com);
+- The Frontend was published on [Vercel](https://vercel.com/docs) 
+<!-- and Backend (including sqlite database) published on [Railway](https://railway.com); -->
 
 ## <b>💻 Technologies used</b>
 
@@ -187,6 +188,8 @@ If you want to test the server directly through its endpoints, check the tables 
 ## <b>🌐 Access</b>
 
 You can access the project page on the this [link](https://multi-step-form-two-theta.vercel.app/) or access the [project files](https://github.com/Gabrield7/multi-step-form) in github.
+
+⚠️ The [project page](https://multi-step-form-two-theta.vercel.app/) in production isn't connected to any API at the moment. To test the application, run it locally by following the instructions shown above.
 
 ## Developed by Gabriel Luiz 🚀
 **Contact**: gabrieldantas503@gmail.com<br>

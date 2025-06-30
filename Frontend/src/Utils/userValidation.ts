@@ -45,7 +45,7 @@ export const checkUserData = async (email?: string, phone?: string): Promise<Che
 
 export const setUserError = async (
     result: SafeParseReturnType<UserSchema, UserSchema>, 
-    data: Partial<UserSchema>, 
+    userFormData: Partial<UserSchema>, 
     setError: UseFormSetError<UserSchema>
 ): Promise<boolean> => {    
     let error = false;
@@ -64,8 +64,7 @@ export const setUserError = async (
     };
     
     // Execute the modular asynchronous validation
-    const { email, phone } = data;
-    //if(email ===)
+    const { email, phone } = userFormData;
     const errors = await checkUserData(email as string, phone as string);
     
     if (errors.emailError) {
